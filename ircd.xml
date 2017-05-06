@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="ircd" default="all">
+  
+  
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <property name="jarFile" value="ChatMania.jar" />
+  <patternset id="compiler.excluded"/>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+  </patternset>
+  <!-- JDK definitions -->
+  
+  <property name="jdk.home.java_version_1.5.0_06" value="C:\Arquivos de programas\Java\jdk1.5.0_06"/>
+  <path id="jdk.classpath.java_version_1.5.0_06">
+    <fileset dir="${jdk.home.java_version_1.5.0_06}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.java_version_1.5.0_06}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.java_version_1.5.0_06"/>
+  <!-- Project Libraries -->
+  <!-- Global Libraries -->
+
+  <manifest file="MANIFEST.MF">
+    <attribute name="Manifest-Version" value="1.0"/>
+    <attribute name="Main-Class" value="chatmania.ChatMania"/>
+	<attribute name="Class-Path" value="lib/activation.jar lib/mysql-connector-java-3.1.11-bin.jar lib/mail.jar"/>
+  </manifest>
+
+  <import file="${basedir}/module_ircd.xml"/>
+  
+  <target name="init" description="Build initialization">
+      <echo>Vai gerar o jar...</echo>
+      <jar jarfile="${basedir}/${jarFile}" basedir="${basedir}/classes" excludes="${jarFile}" manifest="${basedir}/MANIFEST.MF"/>
+      <echo>Gerou o jar.</echo>
+  </target>
+  
+  <target name="clean" depends="clean.module.ircd" description="cleanup all"/>
+  <target name="all" depends="init, clean, compile.module.ircd" description="build all"/>
+
+</project>

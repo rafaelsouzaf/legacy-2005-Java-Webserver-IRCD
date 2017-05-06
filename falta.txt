@@ -1,0 +1,14 @@
+- /k nick motivo 
+- criar comando ignore
+- fazer OPs terem direito sobre a sala clone, talvez seja facil inventendo a ordem de consulta no ChanServ. Atualmente primeiro ele adiciona na sala para depois ver se tem OP e dai mudar o status. Seria melhor primeiro verificar o status para depois adicionar na sala já com status correto.
+- nickserv info apelido está respondendo de forma fragmentada
+- retirar a palavra IRCd do /info
+
+linha 122
+char 1
+object does support this property or method
+
+
+regras das eleiçoes para os SALAS, usuarios, candidatos e ircops
+java -jar -server -vmargs -Xss230k -Xms30M -Xmx773M meuPrograma.jar 
+

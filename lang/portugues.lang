@@ -1,0 +1,820 @@
+// Em hosts o IRCd irá gravar a terminação dos hosts e comparar
+// com o host do usuário que conecta, se forem os mesmos então
+// automaticamente o ircd irá definir essa linguagem como padrão
+// para esse usuario.
+
+hosts=.br;.pt
+
+//
+// Traduçao do MOTD
+//
+
+motd={
+Informações:<br>
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+Atenção: Os Portais parceiros não se responsabilizam<br>
+pelo conteúdo das mensagens e informações veiculadas<br>
+neste bate-papo.<br>
+-<br>
+Leia nossas regras e políticas de privacidade em:<br>
+http://www.chatmania.com.br/privacy.html<br>
+-<br>
+Apelidos  ->   /nickserv help<br>
+Salas     ->   /chanserv help<br>
+IRCop     ->   /operserv help<br>
+Dicas     ->   /news help<br>
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+}
+
+//
+// Traduções do WebChat
+//
+
+webchat_001=* Partiu <= %s
+webchat_002=* Entrou => %s
+webchat_003=* Atenção! Você acaba de ser expulso da sala %s por %s (%s)
+webchat_004=* %s expulsou usuário %s (%s)
+webchat_005=* %s agora é %s
+webchat_006=* Partiu <= %s (%s)
+webchat_007=* Desconectado! (%s)
+webchat_008=* %s setou modo: %s
+webchat_009=* %s removeu modo: %s
+webchat_010=Comando inexistente! Veja exemplo(s) abaixo:<br>
+webchat_011=Erro! Você está banido do chat. Motivo: %s
+webchat_012=* Você não pode entrar na sala %s porque está BANIDO de lá. Escolha outra sala.
+webchat_013=* Tópico da sala é: %s (definido por %s)
+webchat_014=%s está conectando de %s
+webchat_015=* %s mudou tópico da sala para: %s
+webchat_016=* Usuário banido <u>%s</u> tentou entrar na sala.
+webchat_017=* Erro. Apelido %s já está em uso.
+webchat_018=* Erro. Seu apelido está sendo mudado muito rapidamente. Aguarde alguns instantes.
+webchat_019=* --- Comando (%s) é inexistente.
+webchat_020=Está registrado e identificado.
+webchat_021=Não
+webchat_022=Sim
+webchat_023=segundo(s)
+webchat_024=minuto(s)
+webchat_029=* Sala não encontrada: %s
+webchat_030=* Erro. Você precisa ser Operador da sala para utilizar esse recurso.
+webchat_031=* Sala/Apelido não encontrado.
+webchat_032=* Erro. Apelido não permitido. Escolha outro sem utilizar caracteres estranhos.
+webchat_033=* Limite de salas excedido. Você já está em muitos salas.
+webchat_034=Impossível enviar mensagem. Sala está em modo moderado (Só operadores podem conversar).
+webchat_035=
+webchat_046=* Longe (%s)
+webchat_047=Apelido %s não foi encontrado.
+webchat_048=* Você está de volta.
+webchat_049=* Atenção! O Apelido %s é ilegal (Forbid). Se você insistir será banido do servidor.
+webchat_050=* Erro. Apelido %s contém caracteres ilegais.
+webchat_051=* %s setou <u>%s</u> em %s
+webchat_052=* %s removeu <u>%s</u> de %s
+webchat_053=* Erro! Sala %s já está com modo <u>%s</u>
+webchat_054=* Erro! Sala %s não está com modo <u>%s</u>
+webchat_055=* Erro! Você não tem status suficiente para realizar essa operação.
+webchat_056=* Erro! Você precisa estar presente na sala <u>%s</u>.
+webchat_057=* Tópico da sala %s não está definido.
+webchat_058=* Erro! %s já está na lista de banidos.
+webchat_059=* Erro! %s não está está na lista de banidos.
+webchat_060=Número de conexões para seu IP %s chegou ao limite. Em caso de dúvidas entre em contato através do email: %s
+webchat_061=Desconectou
+webchat_062=IRCops Online:
+webchat_063=-> Nenhum IRCop Online no momento.
+webchat_064=IRCops Eleitos:
+webchat_065=Servidor online há: %s dias %s horas %s minutos %s segundos.
+webchat_066=* Erro. Sala %s contém caracteres ilegais.
+webchat_067=--- <b>%s</b> visualizou suas informações (/whois).
+webchat_068=Desconectado por Flooding.
+webchat_069=*** A sala %s está lotada (%s usuários). Veja outras salas disponíveis.
+webchat_070=Lista de Banidos
+webchat_071=* %s limpou a lista de banidos da sala
+
+//
+// Traduções do ChanServ
+//
+
+chanserv_001={
+ChanServ permite que "registre" e controle vários aspectos da sala de bate-papo. Os comandos abaixo listados permitem
+o registro e cancelamento da sala e adição e remoção de OPs ou Owners.
+<br><br>
+Para mais informações sobre um determinado comando, digite: <u>/chanserv help [comando]</u>.
+<br><br>
+     REGISTER    -- Registra uma sala.<br>
+     SETPASS     -- Seta nova senha para a sala.<br>
+     LIST        -- Lista OPs e Owners de uma sala.<br>
+     DROP        -- Desregistra uma sala.<br>
+     ADD         -- Adiciona novo OP(Host) ou Owner a uma sala.<br>
+     DEL         -- Retira um OP(Host) ou Owner de uma sala.<br>
+     INFO        -- Mostra informações sobre determinada sala.<br>
+     SUCESSOR    -- Define um sucessor para a sala.<br>
+     SENDPASS    -- Envia a senha da sala para o email do Fundador.<br>
+     ONJOIN      -- Adiciona ou remove uma mensagem de entrada na sala.
+<br><br>
+É necessário que um Owner ou Fundador entre na sala pelo menos uma vez a cada %s dias, caso contrário ela perderá o registro.
+}
+
+chanserv_002={
+Registro            - Registra a sala em seu nome, tendo você totais poderes sobre ela.
+<br><br>
+    Modo de usar     /CHANSERV REGISTER #sala [senha]<br>
+    Exemplo          /CHANSERV REGISTER #Amizades PassW88
+<br><br>
+É necessário que um Owner ou Fundador entre na sala pelo menos uma vez a cada %s dias, caso contrário ela perderá o registro.
+}
+
+chanserv_003={
+Entrada             - Define a mensagem de entrada que seus usuários irão receber. A mensagem pode ter até 7 linhas.
+<br><br>
+    Modo de usar     /CHANSERV ONJOIN #sala [linha[ [mensagem]<br>
+    Exemplo          /CHANSERV ONJOIN #Amizades 1 frase aqui<br>
+                     /CHANSERV ONJOIN #Amizades 2 frase aqui
+<br><br>
+    Retira Onjoin    /CHANSERV ONJOIN CLEAR #Amizades
+}
+
+chanserv_004={
+Desregistro         - Cancela o registro da sua sala.
+<br><br>
+    Modo de usar     /CHANSERV DROP #sala [senha]<br>
+    Exemplo          /CHANSERV DROP #Amizades PassW883j
+}
+
+chanserv_005={
+Lista Operadores    - Lista os Operadores e Owners de uma determinada sala!
+<br><br>
+    Modo de usar     /CHANSERV LIST #sala<br>
+    Exemplo          /CHANSERV LIST #Amizades
+}
+
+chanserv_006={
+Adiciona OPs        - Adiciona Operadores ou Owners em uma determinada sala!
+<br><br>
+    Modo de usar     /CHANSERV ADD #sala [HOST/OWNER] [apelido]<br>
+    Exemplo          /CHANSERV ADD #Amizades HOST Fulano<br>
+    Exemplo          /CHANSERV ADD #Amizades OWNER Fulano
+}
+
+chanserv_007={
+Retira OPs          - Retira determinado OP ou Owner da lista de acesso!
+<br><br>
+    Modo de usar     /CHANSERV DEL #sala [apelido]<br>
+    Exemplo          /CHANSERV DEL #Amizades Fulano
+}
+
+chanserv_008={
+Envia Senha         - Envia a senha da sala para o email do Fundador.
+<br><br>
+    Modo de usar     /CHANSERV SENDPASS [#sala]<br>
+    Exemplo          /CHANSERV SENDPASS #Amizades
+}
+
+chanserv_009={
+Olá, eu sou o ChanServ, um serviço do sistema. Atualmente estou monitorando %s salas. Para informações sobre uma sala, digite /chanserv info #sala
+}
+
+chanserv_010={
+Informações         - Mostra diversas informações sobre determinada sala.
+<br><br>
+    Modo de usar     /CHANSERV INFO #sala<br>
+    Exemplo          /CHANSERV INFO #Amizades
+}
+
+chanserv_011={
+Seta nova senha     - Modifica a senha da sala.
+<br><br>
+    Modo de usar     /CHANSERV SETPASS #sala novaSenha<br>
+    Exemplo          /CHANSERV SETPASS #Amizades PassW883j
+}
+
+chanserv_012={
+Define um Sucessor - Define um sucessor para a sala ou retira/atualiza sucessor existente.
+<br><br>
+    Modo de usar     /CHANSERV SUCESSOR #sala apelido<br>
+    Modo de usar     /CHANSERV SUCESSOR #sala
+<br><br>
+    Exemplos:
+<br><br>
+    Adicionando      /CHANSERV SUCESSOR #Amizades John<br>
+    Retirando        /CHANSERV SUCESSOR #Amizades
+}
+
+chanserv_013=Usuário %s foi cadastrado com sucesso como Host da sala %s.
+chanserv_014=Erro! Usuário %s já está cadastrado para essa sala. Digite /chanserv list %s para ver os cadastrados.
+chanserv_015=Erro! Apelido %s precisa estar registrado para ser acrescentado ao banco de dados da sala.
+chanserv_016=Erro! Você precisa ser Owner da sala para utilizar esse recurso.
+chanserv_017=Usuário %s foi cadastrado com sucesso como OWNER da sala %s.
+chanserv_018=Erro! Você precisa estar com o apelido Registrado e Identificado para utilizar esse recurso.
+chanserv_019=Usuário %s foi DESCADASTRADO com sucesso.
+chanserv_020=Erro! Apelido %s não está cadastrado como OP ou Owner. Digite /chanserv list %s para ver os cadastrados.
+chanserv_021=Erro! Dados incorretos!
+chanserv_022=
+chanserv_023=TOPIC %s 7Divulgue o webchat de sua sala através do endereço:12 %s/blah.html?sala=%s
+chanserv_024=Erro! Você precisa estar presente na sala para registrá-la.
+chanserv_025=Erro. Sala %s não está registrada.
+chanserv_026=Erro! Apenas o primeiro usuário que entrar na sala pode registrá-la. Se você quiser tentar o registro terá que reentrar em primeiro quando a sala estiver vazia (se então já não estiver sido registrada).
+chanserv_027=Erro! Você já possui %s salas - número máximo permitido - registradas. São elas:
+chanserv_028=Para obter informações de como DESregistrar salas, digite /chanserv help drop
+chanserv_029=Lista de Owners da sala %s:
+chanserv_030=Lista de Hosts da sala %s:
+chanserv_031=Erro! Digite <u>/chanserv help</u> para ver os comandos disponíveis.
+chanserv_032=Erro! Sala %s já está registrada.
+chanserv_033=Mensagem Onjoin da sala %s atualizada na linha %s (permitido até 7 linhas).
+chanserv_034=Erro! Você deve setar mensagem de Onjoin entre as linhas 1 e 7.
+chanserv_035=Informações sobre %s
+chanserv_036=Fundador: %s
+chanserv_037=Registrado em: %s
+chanserv_038=A sala <b>%s</b> foi registrada com sucesso utilizando seu apelido %s! A senha da sala é <b>%s</b>. Lembre-se dela para uso posterior.
+chanserv_039=
+chanserv_040=A sala <b>%s</b> foi DESREGISTRADA com sucesso!
+chanserv_041=Erro! Você precisa estar identificado com o apelido do Fundador para utilizar esse recurso.
+chanserv_042=Envio de Senha
+chanserv_043=Senha da sala %s enviada com sucesso para o email do Fundador.
+chanserv_044=Usuário %s solicitou por email a senha da sala %s
+chanserv_045=Não foi possível enviar a senha. Por favor, entre em contato com a administração relatando o problema.
+chanserv_046=Erro! Não é permitido o registro de salas clones.
+chanserv_047={
+Olá %s,
+
+Você solicitou o envio da senha de acesso da sua sala %s. Abaixo estão os dados:
+
+Sala: %s
+Senha: %s
+
+Caso você não tenha solicitado a senha, por favor, ignore esse email.
+
+Obrigado!
+Att,
+
+Rede %s
+}
+chanserv_048=Onjoin da sala %s foi limpo com sucesso.
+chanserv_049=Erro! Sala %s não está aberta no momento.
+chanserv_050=4Mensagem automática: O fundador da sala %s agora é %s, por falta de frequência do fundador anterior.
+chanserv_051=Ok. Usuário %s agora é sucessor da sala %s.
+chanserv_052=Ok, a senha da sala %s agora é %s
+chanserv_053=Erro! O sucessor da sala não pode ser ao mesmo tempo fundador da mesma.
+chanserv_054=Sucessor: %s
+chanserv_055=Ok. A sala %s agora não possui sucessor definido.
+chanserv_056=Erro! A sala %s já possui o número máximo de Hosts registrados, que é de %s Hosts.
+chanserv_057=Erro! A sala %s já possui o número máximo de Owners registrados, que é de %s Owners.
+
+//
+// Traduções do News
+//
+
+news_001={
+News é um serviço de envio de notícias para os usuários do chat.
+O usuário do chat pode bloquear o recebimento das notícias caso
+queira, para saber mais informações sobre isso, digite <u>/news help off</u>
+<br><br>
+Para mais informações sobre um determinado comando, digite: /news help [comando].
+<br><br>
+     ON       -- Ativa o recebimento de notícias para um determinado apelido.<br>
+     OFF      -- Cancela o recebimento de notícias para um determinado apelido
+}
+
+news_002={
+Ativa               - Ativa o recebimento de notícias para um determinado apelido. É necessário estar com o apelido identificado.
+<br><br>
+    Modo de usar     /NEWS ON<br>
+    Exemplo          /NEWS ON
+}
+
+news_003={
+Cancela             - Cancela o recebimento de notícias para seu apelido. É necessário estar com o apelido identificado.
+<br><br>
+    Modo de usar     /NEWS OFF<br>
+    Exemplo          /NEWS OFF
+}
+
+news_004=Erro! Você precisa estar com o apelido Registrado e Identificado para utilizar esse recurso.
+news_005=Obrigado. Dados atualizados com sucesso!
+news_006=Erro! Digite /news help para ver os comandos disponíveis.
+
+//
+// Traduções do NickServ
+//
+
+nickserv_001={
+NickServ permite que "registre" um apelido evitando que outras pessoas o utilizem. Os comandos abaixo listados
+permitem o registro e a manutenção dos apelidos.
+<br><br>
+Para mais informações sobre um determinado comando, digite: /nickserv help [comando].
+<br><br>
+     REGISTER      -- Registra um apelido.<br>
+     IDENTIFY      -- Identifica o seu apelido.<br>
+     EMAIL         -- Modifica o seu email cadastrado.<br>
+     LANG          -- Muda o idioma padrão.<br>
+     DROP          -- Desregistra o seu apelido.<br>
+     LOGOFF        -- Faz logoff do seu apelido atual.<br>
+     SETPASS       -- Muda a senha do seu apelido para uma nova senha definida.<br>
+     SENDPASS      -- Envia a sua senha para seu email cadastrado.<br>
+     REGAIN        -- Recupera seu apelido caso o mesmo esteja trancado.<br>
+     AJOIN         -- Seta salas para entrada automática quando você identifica seu apelido.<br>
+     INFO          -- Mostra as informações de um determinado apelido registrado.
+<br><br>
+Após registrado, é necessário identificar o seu apelido (fazendo
+o login através do comando /pass senha ou pelo formulário do
+webchat) pelo menos uma vez a cada %s dias, caso contrário
+o apelido perderá o registro.
+}
+
+nickserv_002={
+Registro            - Reserva um apelido para que somente você o utilize.
+<br><br>
+    Modo de usar     /NICKSERV REGISTER [email]<br>
+    Exemplo          /NICKSERV REGISTER email@meuprovedor.com
+<br><br>
+Após registrado, é necessário identificar o seu apelido (fazendo
+o login através do comando /pass senha ou pelo formulário do
+webchat) pelo menos uma vez a cada %s dias, caso contrário
+o apelido perderá o registro.
+}
+
+nickserv_003={
+Identificação       - Identifica o seu apelido registrado.
+<br><br>
+    Modo de usar     /NICKSERV IDENTIFY [senha]<br>
+    Exemplo          /NICKSERV IDENTIFY PassW883j
+<br><br>
+Observação: O comando /pass [senha] possui a mesma função,
+facilitando a identificação do seu apelido.
+
+Após registrado, é necessário identificar o seu apelido (fazendo
+o login através do comando /pass senha ou pelo formulário do
+webchat) pelo menos uma vez a cada %s dias, caso contrário
+o apelido perderá o registro.
+}
+
+nickserv_004={
+Recupera Apelido    - Recupera o seu apelido caso esteja
+                      trancado ou utilizado indevidamente.
+<br><br>
+    Modo de usar     /NICKSERV REGAIN [apelido] [senha]<br>
+    Exemplo          /NICKSERV REGAIN joao PassW883j
+}
+
+nickserv_005={
+Nova Senha          - Muda a senha do seu apelido para uma
+                      nova senha. Recomendado!
+<br><br>
+    Modo de usar     /NICKSERV SETPASS [senha]<br>
+    Exemplo          /NICKSERV SETPASS PassW883j
+}
+
+nickserv_006={
+Novo Email          - Muda o seu email cadastrado. Você precisa estar com o apelido identificado.
+<br><br>
+    Modo de usar     /NICKSERV EMAIL [email]<br>
+    Exemplo          /NICKSERV EMAIL email@email.com.br
+}
+
+nickserv_007={
+Envia Senha         - Envia a senha do seu apelido para o seu endereço de email cadastrado.
+<br><br>
+    Modo de usar     /NICKSERV SENDPASS [apelido]<br>
+    Exemplo          /NICKSERV SENDPASS joao
+}
+
+nickserv_008={
+Desregistro         - Cancela o registro do seu apelido. Irreversível!
+<br><br>
+    Modo de usar     /NICKSERV DROP [senha]<br>
+    Exemplo          /NICKSERV DROP PassW883j
+}
+
+nickserv_009={
+Informações         - Mostra diversas informações sobre determinado apelido registrado.
+<br><br>
+    Modo de usar     /NICKSERV INFO [apelido]<br>
+    Exemplo          /NICKSERV INFO joao
+}
+
+nickserv_010={
+Idioma              - Muda o seu idioma padrão.
+<br><br>
+    Modo de usar     /NICKSERV LANG [idioma]<br>
+    Exemplo          /NICKSERV LANG portugues
+}
+
+nickserv_011={
+Entrada automática  - Salas para entrar automaticamente toda vez que identificar seu apelido.
+<br><br>
+    Modo de usar     /NICKSERV AJOIN ADD/DEL [#sala]<br>
+    Exemplo          /NICKSERV AJOIN ADD #channel<br>
+                     /NICKSERV AJOIN DEL #channel
+<br><br>
+Observação: E você ainda pode utilizar os comandos
+/nickserv ajoin now para entrar em todos as salas
+da sua lista e nickserv ajoin list para saber quais
+salas estão na sua lista.
+}
+
+nickserv_012={
+Olá, eu sou o NickServ, um serviço do sistema. Atualmente estou monitorando %s apelidos.
+Para informações sobre um apelido específico, digite /nickserv info fulano
+}
+
+nickserv_013={
+Olá %s,
+
+Você ou alguma pessoa solicitou o envio da senha do seu Apelido. Caso você não tenha solicitado a senha, por favor, ignore esse email. Abaixo estão os dados:
+
+Apelido: %s
+Senha: %s
+
+Obrigado!
+Att,
+
+Rede %s
+}
+
+nickserv_014={
+Olá %s,
+
+Esse email confirma o registro de seu apelido. A partir de agora o apelido %s é de uso exclusivo seu, sendo necessário sempre se identificar para que o apelido não seja trocado automaticamente. Abaixo seguem os dados:
+
+Apelido: %s
+Senha: %s
+
+Como se identificar:
+
+Para pegar o seu apelido digite no bate-papo: /nick %s
+E após isso identifique-se digitando: /pass %s
+
+Outra opção é preencher com os seus dados o formulário presente no webchat. Recomendamos fortemente que você modifique sua senha para uma de sua preferência. É bem simples, estando identificado com o seu apelido no bate-papo, digite: /nickserv setpass novaSenha
+
+Obrigado!
+Att,
+
+Rede %s
+}
+
+nickserv_015={
+Logoff              - Faz logoff do seu apelido.
+<br><br>
+    Modo de usar     /NICKSERV LOGOFF<br>
+    Exemplo          /NICKSERV LOGOFF
+}
+
+nickserv_016=
+nickserv_017=Você já está identificado.
+nickserv_018=Ok! A senha do seu apelido agora é %s
+nickserv_019=Erro! Você precisa estar com o apelido Registrado e Identificado para utilizar esse recurso.
+nickserv_020=Ok! Você mudou o seu email cadastrado para: %s
+nickserv_021=Apelido %s DESREGISTRADO com sucesso!
+nickserv_022=
+nickserv_023=Erro! Só é permitido o cadastro de salas que começem com o caracter #.
+nickserv_024=Erro. Apelido %s não está registrado.
+nickserv_025=Lista de salas (Ajoin):
+nickserv_026=Sua lista de entrada automática (Ajoin) está vazia.
+nickserv_027=Erro! Sala %s não está na sua lista de entrada automática.
+nickserv_028=KILL by NickServ (Recuperando Apelido)
+nickserv_029=Ok, agora você é %s e já está identificado.
+nickserv_030=Seu idioma padrão agora é: %s
+nickserv_031=Erro! Apelido %s já está registrado.
+nickserv_032=Apelido %s registrado com sucesso! Atenção: A senha do seu apelido é <b>%s</b><br><br>Algumas informações foram enviadas para sua conta de email (%s).
+nickserv_033=
+nickserv_034=Erro! Endereço de email possui caracteres inválidos. Cadastre um e-mail correto, pois é para ele que será enviada a sua senha.
+nickserv_035=Atenção: O apelido <u>%s</u> está registrado e possui um dono! Se o apelido pertencer a você, digite <b>/pass suaSenha</b>
+nickserv_036=
+nickserv_037=Atenção: O apelido <u>%s</u> não está registrado! Caso queira registrá-lo, digite <u>/nickserv help</u> para obter mais informações.
+nickserv_038=
+nickserv_039=Idioma %s não está disponível, escolha um entre os idiomas: %s
+nickserv_040=Envio de Senha
+nickserv_041=Senha do apelido %s enviado com sucesso para o email cadastrado.
+nickserv_042=Usuário %s solicitou por email a senha do apelido %s
+nickserv_043=Não foi possível lhe enviar o email. Por favor, entre em contato com a administração relatando o problema.
+nickserv_044=Registro de Apelido
+nickserv_045=Ok, sala %s NÃO está mais na sua lista de entrada automática.
+nickserv_046=Erro! Sala %s já está na sua lista de entrada automática.
+nickserv_047=Informações sobre %s
+nickserv_048=Email: %s
+nickserv_049=Registrado em: %s
+nickserv_050=É IRCop? Sim.
+nickserv_051=É IRCop? Não.
+nickserv_052=Fundador das salas:
+nickserv_053=Owner das salas:
+nickserv_054=Host das salas:
+nickserv_055=Ok, sala %s agora na sua lista de entrada automática.
+nickserv_056=
+nickserv_057=Erro! Endereço de email %s já existe no banco de dados. Cadastre um e-mail correto, pois é para ele que será enviada a sua senha.
+nickserv_058=Erro! Você já está usando o apelido %s.
+nickserv_059=Erro! Digite /nickserv help para ver os comandos disponíveis.
+nickserv_060=Ok! Você agora está registrado e identificado.
+nickserv_061=Erro! É permitido a mudança de hostname uma vez a cada %s dias. Digite /nickserv info %s para ver o dia que você mudou o seu host.
+nickserv_062=Erro! Host %s possui caracteres ilegais.
+nickserv_063=Ok. Seu hostname agora é %s.
+nickserv_064=Lembre-se que você só poderá trocar novamente o hostname daqui a %s dias.
+nickserv_065=Ok. Seu hostname a partir de agora volta a ser o padrão definido pelo bate-papo.
+nickserv_066=HostName: %s
+nickserv_067=Host Modificado em: %s
+nickserv_068=Erro! Comando REGAIN não pode ser utilizado porque usuário %s está como IRCop.
+nickserv_069=Erro! Você já possui cadastrado no Ajoin o máximo de salas permitido por usuário, que é de %s salas.
+nickserv_070=Você não está mais identificado.
+
+nickserv_071={
+
+}
+
+//
+// Traduções do OperServ
+//
+
+operserv_001={
+OperServ permite que os IRCops manipulem uma série de
+comandos que auxiliam na administração do chat. Para
+mais informações sobre um determinado comando, digite:
+<u>/operserv help [comando]</u>
+<br><br>
+     MANAGER       -- Gerencia lista de IRCOps.<br>
+     DIE           -- Desliga Chat.<br>
+     FORBID        -- Proibe uso de apelido ou sala.<br>
+     GETPASS       -- Mostra a senha de apelido ou sala.<br>
+     SETPASS       -- Seta nova senha para apelido ou sala.<br>
+     KILL          -- Expulsa do servidor usuário ou #sala.<br>
+     KLINE         -- Manipula lista de klines.<br>
+     NOTICEOPER    -- Notice Global para IRCops.<br>
+     SMSG          -- Abre PVTs com TODOS os usuários.<br>
+     MAILUSERS     -- Envia email para todos os usuários.<br>
+     MAILOPERS     -- Envia email para todos os IRCops.<br>
+     REHASH        -- Atualiza algumas configurações.<br>
+     USERS         -- Lista todos os usuários do servidor.<br>
+     ZOMBIE        -- Impede usuário de enviar mensagem.<br>
+     NEWS          -- Mostra todas o conteúdo do News.<br>
+     SLAYER        -- Faz usuário repetir o comando que você escreve.
+}
+
+operserv_002={}
+operserv_003={}
+
+operserv_004={
+MANAGER            - Administra a lista de IRCops cadastrados
+                     no servidor. Permite listar, adicionar ou
+                     remover novos IRCops (Apenas para Admin).
+<br><br>
+    Modo de usar     /OPERSERV MANAGER ADD IRCOP/ADMIN Apelido Senha<br>
+    Exemplo          /OPERSERV MANAGER ADD IRCOP John PassWord123<br>
+    Exemplo          /OPERSERV MANAGER ADD ADMIN John PassWord123<br>
+    Exemplo          /OPERSERV MANAGER DEL John<br>
+    Exemplo          /OPERSERV MANAGER LIST
+}
+
+operserv_005={
+ZOMBIE             - Impede usuário de enviar mensagem para o chat.
+                     Utilize o mesmo comando para desativar o zombie.
+<br><br>
+    Modo de usar     /OPERSERV ZOMBIE apelido<br>
+    Exemplo          /OPERSERV ZOMBIE john
+}
+
+operserv_006={
+DIE                - Desliga o Chat (Apenas para Admin).
+<br><br>
+    Modo de usar     /OPERSERV DIE<br>
+    Exemplo          /OPERSERV DIE
+}
+
+operserv_007={
+KILL               - Expulsa do servidor determinado usuário ou todos usuários de determinada #sala.
+<br><br>
+    Modo de usar     /OPERSERV KILL USER/IP/#SALA<br>
+    Exemplo          /OPERSERV KILL John<br>
+    Exemplo          /OPERSERV KILL #Sala<br>
+    Exemplo          /OPERSERV KILL 123.123.123.123<br>
+    Exemplo          /OPERSERV KILL 123.123.*
+}
+
+operserv_008={
+KLINE              - Manipula lista de IPs banidos do server.
+<br><br>
+    ADD              Adiciona IP a lista de bans.<br>
+    Modo de usar     /OPERSERV KLINE ADD ip<br>
+    Exemplo          /OPERSERV KLINE ADD 123.123.23.*
+<br><br>
+    DEL              Deleta IP da lista de bans.<br>
+    Modo de usar     /OPERSERV KLINE DEL ip<br>
+    Exemplo          /OPERSERV KLINE DEL 123.123.23.*
+<br><br>
+    LIST             Lista IPs banidos.<br>
+    Modo de usar     /OPERSERV KLINE LIST<br>
+    Exemplo          /OPERSERV KLINE LIST
+<br><br>
+    CLEAR            Limpa a lista de IPs banidos.<br>
+    Modo de usar     /OPERSERV KLINE CLEAR<br>
+    Exemplo          /OPERSERV KLINE CLEAR
+}
+
+operserv_009={
+NOTICEOPER         - Tipo de mensagem Notice Global que apenas IRCops recebem.
+<br><br>
+    Modo de usar     /OPERSERV NOTICEOPER Mensagem<br>
+    Exemplo          /OPERSERV NOTICEOPER frase aqui bla bla bla...
+}
+
+operserv_010={
+NEWS               - Lista todos os artigos e seus links disponíveis no momento.
+<br><br>
+    Modo de usar     /OPERSERV NEWS<br>
+    Exemplo          /OPERSERV NEWS
+}
+
+operserv_011={
+SMSG               - Abre PVTs com TODOS os usuários.
+<br><br>
+    Modo de usar     /OPERSERV SMSG Mensagem<br>
+    Exemplo          /OPERSERV SMSG frase aqui bla bla bla...
+}
+
+operserv_012={
+REHASH             - Atualiza diversas configurações e opções do servidor.
+<br><br>
+    Exemplo          /OPERSERV REHASH properties<br>
+    Lê novamente todos os arquivos *.properties que estão no diretório conf/
+<br><br>
+    Exemplo          /OPERSERV REHASH expire<br>
+    Busca e deleta do banco de dados apelidos/salas que já expiraram.
+<br><br>
+    Exemplo          /OPERSERV REHASH lang<br>
+    Recarrega arquivos de idiomas.
+}
+
+operserv_013={
+USERS              - Lista todos os usuários do servidor.
+<br><br>
+    Modo de usar     /OPERSERV USERS<br>
+    Exemplo          /OPERSERV USERS
+}
+
+operserv_014={}
+
+operserv_015={}
+
+operserv_016={
+SLAYER             - Faz usuário repetir o comando que você escreve.
+<br><br>
+    Modo de usar     /OPERSERV SLAYER Apelido Comando<br>
+    Exemplo          /OPERSERV SLAYER John NICK Maria
+}
+
+operserv_017={
+MAILUSERS          - Envia email para todos os usuários.
+<br><br>
+    Modo de usar     /OPERSERV MAILUSERS mensagem<br>
+    Exemplo          /OPERSERV MAILUSERS blah blah blah...
+}
+
+operserv_018={
+MAILOPERS          - Envia email para todos os IRCops.
+<br><br>
+    Modo de usar     /OPERSERV MAILOPERS mensagem<br>
+    Exemplo          /OPERSERV MAILOPERS blah blah blah...
+}
+
+operserv_019={
+FORBID             - Manipula a lista de apelidos ou salas proibidos de uso.
+<br><br>
+    ADD              Adiciona um apelido ou sala a lista.<br>
+    Exemplo          /OPERSERV FORBID ADD #Sala<br>
+                     /OPERSERV FORBID ADD John
+<br><br>
+    DEL              Retira um apelido ou sala a lista.<br>
+    Exemplo          /OPERSERV FORBID DEL #Sala<br>
+                     /OPERSERV FORBID DEL John
+<br><br>
+    LIST             Lista os apelidos e salas.<br>
+    Exemplo          /OPERSERV FORBID LIST
+}
+
+operserv_020={
+GETPASS            - Mostra a senha de determinado apelido ou #sala.
+<br><br>
+    Modo de usar     /OPERSERV GETPASS apelido/sala<br>
+    Exemplo          /OPERSERV GETPASS #Sala<br>
+                     /OPERSERV GETPASS John
+}
+
+operserv_021={
+SETPASS            - Muda a senha de determinado apelido ou #sala.
+<br><br>
+    Modo de usar     /OPERSERV SETPASS apelido/sala [novaSenha]<br>
+    Exemplo          /OPERSERV SETPASS #Sala password123<br>
+                     /OPERSERV SETPASS John password123
+}
+
+operserv_022={
+Olá %s,
+
+%s
+
+Grato!
+Att,
+
+IRCop %s
+Rede %s
+}
+
+operserv_023={
+
+Por favor, lembrem-se:
+<br><br>
+1) Todas as suas atividades como IRCop estão sendo logadas.
+<br><br>
+2) Nenhum IRCop tem autorização para interferir nas salas ou
+   forçar OP na mesma, a não ser em casos de ilegalidade ou a
+   pedido do Owner. A princípio, o que ocorre em uma sala não
+   é problema dos IRCops e sim do dono da sala.
+<br><br>
+3) O IRCop tem as seguintes funções: Esclarecer dúvidas dos
+   usuários; Impedir ataques; Impedir atos ilegais
+   de acordo com a legislação.
+<br><br>
+4) Abuso de poder é punido com a perda do status e imediata
+   convocação do seu suplente.
+<br><br>
+5) O bom-senso é a melhor regra.
+<br><br>
+6) A função de IRCop ou Sysop é totalmente voluntária. O
+   usuário voluntário poderá deixar de ser Sysop se fizer algo
+   inapropriado ou se o administrador do server assim desejar,
+   sem necessidade de qualquer aviso prévio.
+<br><br>
+7) Se está de acordo com todos os termos continue, caso
+   contrário desconecte imediatamente.
+}
+
+operserv_024=
+operserv_025=
+operserv_026=Ok, novo IRCop %s com status %s foi adicionado com sucesso.
+operserv_027=Erro! IRCop %s já está cadastrado.
+operserv_028=Ok, IRCop %s foi DESCADASTRADO com sucesso.
+operserv_029=Erro! IRCop %s não está cadastrado portanto não pode ser deletado.
+operserv_030=%s usou o comando /OPERSERV DIE e o servidor será desligado.
+operserv_031=O servidor será desligado dentro de 10 segundos. Tente conexão dentro de alguns instantes.
+operserv_032=Apenas administradores podem utilizar esse recurso.
+operserv_033=Você KILOU todos usuários da sala %s
+operserv_034=Sala %s não existe.
+operserv_035=Você foi KILADO (Killed) por %s (%s)
+operserv_036=Seu status de IRCop é insuficiente para Kilar esse usuário.
+operserv_037=%s Tentou dar /KILL em você.
+operserv_038=Não existe usuário %s.
+operserv_039=Permissão Negada! Você não é um IRCop.
+operserv_040=Lista de KLine zerada por %s.
+operserv_041=KLine já existe para a mascara %s
+operserv_042=Não consta.
+operserv_043=%s, evite adicionar Kline sem declarar o MOTIVO (/operserv kline add [ip] [motivo]).
+operserv_044=IRCop %s adicionou KLine em: %s
+operserv_045=Kline Inválido: %s
+operserv_046=Não existe Kline para essa máscara: %s
+operserv_047=IRCop %s retirou Kline de: %s
+operserv_048=%s enviando SNOTICE para todos os users.
+operserv_049=Oficial: %s
+operserv_050=%s enviando SMSG para todos os users.
+operserv_051=Ok, opção %s atualizada com sucesso!
+operserv_052=Host do usuário %s modificado com sucesso para %s
+operserv_053=IRCop %s mudou o SEU HOST para -> %s
+operserv_054=%s usando MIMIC em %s na sala %s
+operserv_055=%s usando SLAYER em %s => <b>%s</b>
+operserv_056=-> Nenhum IP banido no momento.
+operserv_057=Erro! Você deve digitar um IP seguindo os modelos: 123.123.123.123 ou 123.123.123.* ou 123.123.* ou 123.*
+operserv_058=Emails enviados com sucesso.
+operserv_059=Nenhuma informação consta.
+operserv_060={
+IRCop,
+
+%s
+
+Grato!
+Att,
+
+IRCop %s
+Rede %s
+}
+operserv_061=*** %s é agora IRC Operator
+operserv_062=*** %s é agora Network Administrator
+operserv_063=Erro! Digite /operserv help para ver os comandos disponíveis.
+operserv_064=***  Erro! Dados incorretos.
+operserv_065=--- Usuário %s (%s) tentou pegar Oper.
+operserv_066=A senha do apelido %s é: %s
+operserv_067=A senha da sala %s é: %s
+operserv_068=Erro. Apelido %s não está registrado.
+operserv_069=Erro. Sala %s não está registrada.
+operserv_070=%s setou nova senha para a sala %s.
+operserv_071=%s setou nova senha para o apelido %s.
+operserv_072=Ok, a senha da sala %s agora é %s
+operserv_073=Ok, a senha do usuário %s agora é %s
+operserv_074=<u>Lista de Apelidos e Salas Forbidados</u><br><br>:
+operserv_075=
+operserv_076=Apelido %s é agora ilegal.
+operserv_077=* Apelido/Sala %s é agora ilegal.
+operserv_078=Apelido %s não é mais ilegal.
+operserv_079=* Apelido/Sala %s não é mais ilegal.
+operserv_080=--- Você já está como IRCop!
+operserv_081=Zombie setado em usuário %s
+operserv_082=Zombie retirado do usuário %s
+operserv_083=Impossível setar Zombie em %s. Ou ele é ircop ou não está online.
+operserv_084=Impossível setar Forbid em canais Clones.
+operserv_085=Erro! Email não pode ser enviado. Por favor, comunique a administração.
+operserv_086=Erro! Host tem caracteres ilegais.
+operserv_087=Comando inexistente! Um exemplo correto é %s
+operserv_088=Atualizado em: %s
+operserv_089=Nenhuma notícia ou dica disponível no momento.

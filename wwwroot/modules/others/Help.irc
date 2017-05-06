@@ -1,0 +1,110 @@
+<?php
+
+class Help {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Help(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Ajuda</u><br>
+				<br>
+				Nossas salas de bate-papo possuem um
+				sistema de hierarquia, onde o usuário que registrou a sala (Owner ou Founder)
+				tem grandes poderes sobre a sala e os usuários que a frequentam. O Owner pode,
+				por exemplo, expulsar ou banir da sala algum usuário que não esteja se comportando. Pode também promover outros usuários para que lhe
+				ajudem a administrar a sala de bate-papo.<br>
+				<br>
+				Você também pode registrar o seu apelido, para que outros usuários nao o
+				utilizem. Tanto o registro do apelido quanto da sala são gratuitos e feitos
+				através de simples comandos no próprio chat.<br>
+				<br>
+				São inúmeros os recursos que o nosso webchat possui e permite, e é impossível
+				para nós listar-mos todos aqui. Com o tempo você conhecerá a capacidade do chat
+				e até poderá concorrer a eleição de IRCops, realizada semestralmente. Para pedir
+				HELP a um IRCop entre na sala #Ajuda.</font></p>
+				<hr color='#000000' width='100%' size='1'>
+				<p align='center'><font face='Verdana' size='2'>Abaixo estão os principais
+				comandos utilizados e suas respectivas funções.</font></p>
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='1' cellpadding='0' cellspacing='2' style=\"border-collapse: collapse\" width='90%' bgcolor='#f3f3f3'>
+			  <tr>
+				<td width='100%'>
+                    <p align='justify'><font face='Verdana' size='2'>
+                    <b>/nick novoApelido</b> - Muda o seu atual apelido para um novo apelido.<br>
+                    <br>
+                    <b>/away [mensagem]</b> - Usado quando usuário ficará longe do chat e quer
+                    deixar uma mensagem de aviso.<br>
+                    <br>
+                    <b>/info</b> - Comando que revela algumas características do sistema de
+                    chat, o autor e outras peculiaridades.<br>
+                    <br>
+                    <b>/ircops</b> - Mostra a lista de IRCops cadastrados e online do momento.<br>
+                    <br>
+                    <b>/join #sala</b> - Usado para entrar em alguma sala, pode ser usado como
+                    /join #sala1 sala2 sala3 (sem espaço entre o nome das salas).<br>
+                    <br>
+                    <b>/part #sala</b> - Usado para sair de alguma sala.<br>
+                    <br>
+                    <b>/list</b> - Lista as salas abertas do momento.<br>
+                    <br>
+                    <b>/quit [mensagem]</b> - Para desconectar do chat deixando uma mensagem de
+                    saída.<br>
+                    <br>
+                    <b>/whois apelido</b> - Revela algumas informações sobre o apelido em
+                    questão.<br>
+                    <br>
+                    <b>/mode set host #Sala apelido</b> - Promove o apelido em questão para Operador da sala.<br>
+                    <br>
+                    <b>/mode unset host #Sala apelido</b> - Retira status de Operador do apelido.<br>
+                    <br>
+                    <b>/mode set ban #Sala apelido</b> - Bane da sala o apelido.<br>
+                    <br>
+                    <b>/mode unset ban #Sala apelido</b> - Retira o ban do apelido.<br>
+                    <br>
+                    <b>/mode list #Sala</b> - Lista os banidos da sala.<br>
+                    <br>
+                    <b>/mode clear #Sala</b> - Limpa a lista de banidos da sala.<br>
+                    <br>
+                    <b>/voice apelido</b> - Dá destaque para o apelido em questão.</font>
+                </td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

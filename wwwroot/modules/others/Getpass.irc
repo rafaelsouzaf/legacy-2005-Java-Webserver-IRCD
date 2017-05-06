@@ -1,0 +1,185 @@
+<?php
+require_once 'modules/util/Util.irc';
+require_once 'modules/util/Email.irc';
+
+class Getpass {
+
+	var $conexao;
+	var $req;
+	var $msg;
+
+	// construtor da classe
+	function Getpass(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se formulario conter apelido e email
+		if ($this->req['apelido'] && $this->req['email']) {
+
+			// cria instancia da classe Util
+			$util = new Util($this->conexao, $this->req);
+
+			// se apelido for registrado
+			if ($util->isRegistered($this->req['apelido'])) {
+
+				// se o nick estiver vinculado a esse email
+				if ($util->isEmail($this->req['apelido'], $this->req['email'])) {
+
+					// envia senha
+					if ($this->sendPass($this->req['apelido'], $this->req['email'])) {
+
+						// avisa usuário que senha foi enviada
+						echo $this->confirma();
+						die();
+
+					} else {
+
+						$this->msg = "Erro no envio do email. Tente mais tarde.";
+
+					}
+
+				} else {
+
+					// nao existe apelido vinculado ao email
+					$this->msg = "Apelido ".$this->req['apelido']." não está vinculado ao email ".$this->req['email'];
+
+				}
+
+			} else {
+
+				// avisa que apelido NAO está registrado
+				$this->msg = "Erro! Apelido <u>".$this->req['apelido']."</u> não está registrado.";
+
+			}
+
+		}
+
+		// carrega pagina default
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Recuperação de Senha</u><br>
+				<br>
+				Se você esqueceu a senha do seu apelido, preencha o formulário abaixo para recebe-la
+				novamente no seu email cadastrado. Note que é necessário preencher os campos <u>Apelido</u>
+				e <u>Email</u>, sendo que o email deve ser o mesmo cadastrado junto ao apelido no momento do registro.
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='1' cellpadding='7' cellspacing='0' width='50%' bgcolor='#f3f3f3' style='border-collapse: collapse;' bordercolor='#111111'>
+			  <tr>
+				<td width='100%'>
+
+				<form name='getpass'>
+				<table border='0' cellpadding='3' cellspacing='0' width='100%'>
+				  <tr>
+					<td width='100%' colspan='2'><font face='Verdana' size='1' color=red>".$this->msg."</font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Apelido:</font></td>
+					<td width='89%'><font face='Verdana'><input type='text' name='apelido' value='".$this->req['apelido']."' size='25'></font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Email:</font></td>
+					<td width='89%'><font face='Verdana'>
+						<input type='text' name='email' size='25' value='".$this->req['email']."'>
+						<input type='button' value='Recuperar' onClick='parent.source.AjaxSendGetpass(); return false;'></font>
+					</td>
+				  </tr>
+				</table>
+				</form>
+
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function confirma() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Recuperação de Senha</u><br>
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='50%'>
+			  <tr>
+				<td width='100%'>
+					<p align='center'><font face='Verdana' size='2'>
+					A senha foi enviada para o email <u>".$this->req['email']."</u>.<br>
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function sendPass($nick, $email) {
+
+		// cria instancia da classe Util
+		$util = new Util($this->conexao, $this->req);
+
+		// pega senha
+		$result = mysql_query("select ns_password from nickserv where ns_nick = '$nick'");
+		if ($row = mysql_fetch_array($result)) {
+
+			$senha = $util->decrypt($row['ns_password']);
+
+			// monta mensagem do email
+			$msg = "Olá $nick, \n\n".
+				   "Você ou alguma pessoa solicitou o envio da senha do seu Apelido. Caso você não tenha solicitado a senha, por favor, ignore esse email. Abaixo estão os dados:\n\n".
+				   "Apelido: $nick \n".
+				   "Senha: $senha \n\n".
+				   "Obrigado! \n".
+				   "Att, \n\n".
+				   "Rede ChatMania \n".
+				   "http://www.chatmania.com.br \n";
+
+			$email = new Email("ChatMania", $email, "Recuperando Senha", $msg, "chatmania@chatmania.com.br");
+			if ($email->envia())
+				return true;
+			else
+				return false;
+
+		}
+
+		return false;
+
+	}
+
+}
+
+?>

@@ -1,0 +1,69 @@
+<?php
+
+class Execute {
+
+	function Execute(&$conexao, &$req) {
+
+		// se a requisiçao tiver o termo modules
+		switch($req['modules']) {
+
+			// se requisitar o modulo Blah
+			case "Blah":
+
+				// importa modulo Blah
+				require_once "modules/blah/Blah.irc";
+
+				// chama instancia da classe
+				$blah = new Blah($conexao, $req);
+				$blah->execute();
+				break;
+
+			// se requisitar o modulo Others
+			case "Others":
+
+				// importa modulo Blah
+				require_once "modules/others/Others.irc";
+
+				// chama instancia da classe
+				$others = new Others($conexao, $req);
+				$others->execute();
+				break;
+
+			// se requisitar o modulo Contact
+			case "Contact":
+
+				// importa modulo Contact
+				require_once "modules/contact/Contact.irc";
+
+				// chama instancia da classe
+				$contact = new Contact($conexao, $req);
+				$contact->execute();
+				break;
+
+			// se requisitar o modulo Product
+			case "Product":
+
+				// importa modulo Product
+				require_once "modules/product/Product.irc";
+
+				// chama instancia da classe
+				$procuct = new Product($conexao, $req);
+				$procuct->execute();
+				break;
+
+			// senao
+			default:
+
+				// importa modulo Index
+				require_once "modules/index/Index.irc";
+
+				// pagina principal
+				$index = new Index($conexao, $req);
+				$index->execute();
+
+		}
+
+	}
+
+}
+?>

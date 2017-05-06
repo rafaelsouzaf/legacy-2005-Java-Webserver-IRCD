@@ -1,0 +1,101 @@
+<?
+
+class Util {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Util(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function encrypt($senha) {
+
+		return base64_encode(base64_encode(base64_encode($senha)));
+
+	}
+
+	function decrypt($senha) {
+
+		return base64_decode(base64_decode(base64_decode($senha)));
+
+	}
+
+	function isValidNick($nick) {
+
+		// verifico se nick tem caracter ilegal
+		$caracteresLegais = "aáàãâbcçdeéèêfghiíìîjklmnñoóòõôpqrstuúùûvxzwy^_[]~1234567890?-";
+
+		// transforma strings em caixa baixa
+		$caracteresLegais = strtolower($caracteresLegais);
+		$nick = strtolower($nick);;
+
+		for($i = 0; $i < strlen($nick); $i++) {
+
+			if (strpos($caracteresLegais, $nick[$i]) === false)
+				return false;
+
+		}
+
+		// se nick tiver mais que caracteres permitidos
+		if (strlen($nick) > 20)
+			return false;
+
+		return true;
+
+	}
+
+	function isValidEmail($email) {
+
+		// se email conter @ e .
+		// entao eh valido
+		if ((strpos($email, "@") > 0) && (strpos($email, ".") > 0))
+			return true;
+		else
+			return false;
+
+	}
+
+	function isExistEmail($email) {
+
+		$result = mysql_query("select ns_email from nickserv where ns_email = '$email'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+	function isRegistered($nick) {
+
+		$result = mysql_query("select ns_nick from nickserv where ns_nick = '$nick'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+	function isEmail($nick, $email) {
+
+		$result = mysql_query("select ns_nick from nickserv where ns_nick = '$nick' and ns_email= '$email'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+}
+
+?>

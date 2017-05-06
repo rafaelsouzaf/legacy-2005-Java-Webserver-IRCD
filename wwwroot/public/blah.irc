@@ -1,0 +1,6 @@
+<?php
+if (!$_REQUEST['modules'])
+	$_REQUEST['modules'] = "Blah";
+
+include "index.irc";
+?>

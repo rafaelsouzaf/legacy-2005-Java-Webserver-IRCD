@@ -1,0 +1,117 @@
+
+Posso fazer uma classe ToServer que inicia uma Thread e se conecta a determinado server
+(hub) através de sockets. Essa classe ToServer irá ficar recebendo as mensagens do Hub
+e imprimi-las para os usuarios quando convier.
+
+-------
+Com isso cada metodo que envie mensagem terá que ter uma condicional para enviar
+2 tipos de mensagem?
+
+Ou talvez apenas adicionar mais uma condiçao no metodo tellUser() como é feito com
+o envio de mensagens do webchat? Acho que nao pode ser assim porque o tellUser envia
+a mensagem para apenas 1 usuario atraves do seu tmpUser.
+
+-------
+
+O Hub irá receber a conexão da classe ToServer e promove-la ao status de link
+(uma nova coleção). Ou melhor, irá setar tmpUser.setSysop(5).
+E quando houver determinado evento o hub irá enviar para o link a devida mensagem para
+que o link a imprima aos seus usuários.
+
+
+Como funciona a impressao da hierarquia de servidores do comando /link ?
+
+E os services, como funcionariam?
+
+openglx: quando entram e saem de canais, sim
+openglx: quando enviam mensagens só se você tiver um usuário no caminho
+
+se você tiver um usuário e ele receber uma mensagem, a mensagem será enviada para ele
+se ele estiver em um canal e alguém de outro servidor enviar uma mensagem, ele receberá
+a mensagem também
+
+mas ainda é meio confuso a parte de envio de PRIVMSG ou pvts entre 2 usuarios
+
+se um usuario está no meu server, no meu server tem os dados desse usuario
+inclusive o endereço socket dele, e esse meu usuario envia um privmsg para o usuario
+de outro servidor, que tambem tem seu endereço socket no meu server
+entao o meu proprio server pode enviar esse privmsg para o usuario do outro server já
+que tem o socket dele ou será necessário passar esse privmsg para o server de origem
+do usuario?
+
+openglx: voce nao tem o endereco socket do outro servidor
+openglx: porque o socket do usuario em outro servidor nao importa para voce
+Rafael Fijalkowski: porque nao? na classe User tem o socket do usuario que conectou
+openglx: se o cara estra em outro servidor, voce manda a mensagem para os servidores
+ate que ela chegue no servidor destino
+openglx: e o servidor destino se encarrega de entregar a mensagem
+
+  openglx: nao
+  openglx: o privmsg segue pelos servidores que precisar
+  openglx: ele tem um sistema chamado "match server"
+  openglx: ele soh manda para os servidores que precisarem receber
+  openglx: se a mensagem for local, ele nem perde tempo propagando
+  Rafael Fijalkowski: ahh, o que o match server faz exatamente?
+  openglx: verifica qual o caminho para encontrar os servidores-alvo
+
+porque tu sabe quem ta em qual servidor
+e tu sabe quais os servidores ligados entre si
+
+quando o servidor 1 pegar a mensagem, vai mandar ela apenas pro servidor 3 (usando
+o mesmo algoritmo)
+o servidor 2 e 4 tambem estao ligados no servidor 1, mas nao vao receber a mensagem
+porque ela nao interessa a eles
+
+usuario B (servidor 0, local) envia mensagem para o usuario A no servidor 3
+tu sabe que para chegar no servidor 3 precisa enviar a mensagem para o servidor 1, jah
+que ele ta no caminho (tu sabe quem sao os servidores ligados na rede, e qual a ordem deles)
+
+openglx: tu tem que checar algo assim (em privmsgs):
+ -> eh local? se sim, nao manda pro resto do mundo
+ -> eh remoto? ok, o servidor ta ligado diretamente em mim? se sim, manda soh pra ele
+ -> eh remoto e o servidor nao ta ligado em mim? entao manda pro servidor que estiver
+ mais proximo a ele fazer o trabalho
+
+openglx: o array eh igual, mas no array diz qual o servidor do cara :)
+openglx: e o array nao eh igual
+openglx: o array de um usuario local eh sempre mais completo
+openglx: existem tres classes Rafael
+openglx: uma classe basica usuarioPadrao
+ela eh a classe mae para usuarioLocal e usuarioRemoto
+openglx: a usuarioLocal tem muito mais informacoes, como o socket do servidor, e
+outras informacoes que voce nao precisa propagar
+openglx: como a cor da cueca do usuario
+openglx: a usuarioRemoto tem sempre menos informacoes, que sao aquelas que tu recebeu
+por propagacao
+openglx: quando um usuario nao eh local, tu tem que enviar para o servidor dele
+openglx: que tu pode ter da mesma forma
+servidorPadrao, servidorLinkadoEmMim, servidorLinkadoLonge
+openglx: (voce escolhe os nomes como quiser, eu deixo)
+se o servidor estiver linkado em ti, tu manda a mensagem direto pra ele
+se nao estiver, tu fica procurando ate achar o servidor que o tal usuario tah (que eh
+bem menos oneroso que procurar o usuario)
+e dai tu manda pro servidor mais proximo, que vai se encarregar de continuar a recursao
+
+
+Rafael Fijalkowski: Rafael Fijalkowski: e a parte dos canais
+se eu envio uma mensagem para um canal, entao estou enviando para todos os usuarios
+dessse canal individualmente
+é o mesmo sistema? vejo user por user em que server está e encaminhoa  mensagem?
+openglx: nos canais voce envia para todos os servidores que tenham algum usuario
+naquele canal
+openglx: os canais sao um pouco mais complicado
+Rafael Fijalkowski: ai aia i
+openglx: na verdade eu nao sei bem como ele deve fazer
+mas eu particularmente percorreria o array para ver quais os servidores da lista
+servidorLinkadoEmMim tem algum usuario nesse canal e propagaria a mensagem para eles
+
+
+meu server linkado iniciou e está vazio
+o usuario Joao conecta ao meu server
+o usuario Joao quer trocar o nick para Paulo
+como o ircd verifica na rede se o nick Paulo está ocupado? todos os servidores linkados possuem
+os mesmos dados da classe User, entao basta verificar no User local se existe o nick Paulo
+
+
+
+

@@ -1,0 +1,169 @@
+
+-------------------------------------------
+File    : 18:52 - SQL.java
+Method : conecta()
+Error   : java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+-------------------------------------------
+File    : 18:52 - SQL.java
+Method : query(select kl_mask, kl_reason, kl_date from kline)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:54 - SQL.java
+Method : conecta()
+Error   : java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+-------------------------------------------
+File    : 18:54 - SQL.java
+Method : query(select kl_mask, kl_reason, kl_date from kline)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:56 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494107738700', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:58 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494107738700', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:00 - SQL.java
+Method : conecta()
+Error   : java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+-------------------------------------------
+File    : 19:00 - SQL.java
+Method : query(select kl_mask, kl_reason, kl_date from kline)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:02 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494108104710', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:04 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494108104710', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:06 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494108104710', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQL.java
+Method : delete(delete from channels)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQL.java
+Method : query(select ns_nick from nickserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQLQuery.java
+Method : countNicks()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQL.java
+Method : query(select cs_channel from chanserv)
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQLChanServ.java
+Method : countChannels()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 19:08 - SQL.java
+Method : update(update server set network = 'ChatMania', admin = 'Rafael Souza Fijalkowski', email = 'chatmania@chatmania.com.br', link = 'http://www.chatmania.com.br:8080', uptime = '1494108104710', users_total = '0', users_registered = '0', channels_online = '0', channels_registered = '0')
+Error   : java.lang.NullPointerException

@@ -1,0 +1,81 @@
+<?php
+
+class ListRoom {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function ListRoom(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Salas</u><br>
+				<br>
+
+				<table cellSpacing=0 cellPadding=2 width=100% border=1 style='border-collapse: collapse' borderColor=#C0C0C0>
+					<tr>
+						<td width='20%' height='20' align='center'>
+							<font size='1' face='Verdana'>Salas</font>
+						</td>
+						<td width='5%' height='20' align='center'>
+							<font size='1' face='Verdana'>Usuários</font>
+						</td>
+						<td width='75%' height='20' align='center'>
+							<font size='1' face='Verdana'>Tópicos</font>
+						</td>
+					</tr>
+
+		";
+
+        $result = mysql_query("SELECT * FROM channels ORDER BY users DESC");
+		while ($row = mysql_fetch_array($result)) {
+
+			$channel = $row['channel'];
+
+            $html .= "
+                <tr>
+                    <td width='15%' height='20'>
+                        <a class=link href='#' onClick=parent.source.entraCanal(\"".$channel."\")>
+                        <font size=2 face=Verdana>".$channel."</font></a>
+					</td>
+					<td width='10%' height='20'>
+						<font size=2 face=Verdana>&nbsp;&nbsp;".$row['users']."</font>
+					</td>
+					<td width='75%' height='20'>
+						<font size=2 face=Verdana>".$row['topic']."</font>
+					</td>
+				</tr>
+            ";
+
+		}
+
+		$html .= "</table><br>";
+
+		return $html;
+
+	}
+
+}
+
+?>

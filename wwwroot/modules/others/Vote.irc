@@ -1,0 +1,309 @@
+<?php
+require_once 'modules/util/Util.irc';
+
+class Vote {
+
+	var $conexao;
+	var $req;
+	var $msg;
+
+	// construtor da classe
+	function Vote(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se formulario conter apelido e email
+		if ($this->req['candidato'] && $this->req['nome'] && $this->req['cpf'] && $this->req['apelido'] && $this->req['senha']) {
+
+			// cria instancia da classe Util
+			$util = new Util($this->conexao, $this->req);
+
+			// se candidato for valido
+			if ($this->candidatoValido($this->req['candidato'])) {
+
+				// se usuario ainda nao votou
+				if (!$this->usuarioJaVotou($this->req['apelido'])) {
+
+					// dia limite para usuario registrar o nick e poder votar
+					$diaLimite = mktime(0, 0, 0, 11, 01, 2005)."000";
+
+					// pega dia que usuario registruo o apelido
+					$diaRegistro = $this->getDataRegistro($this->req['apelido']);
+
+					// se apelido tiver sido registrado antes de tantos dias atras
+					if (($diaRegistro > 0) && ($diaRegistro < $diaLimite)) {
+
+						// se nome estiver completo (st.countTokens > 1)
+						if ($this->nomeCompleto($this->req['apelido'])) {
+
+							// se cpf for valido
+							if ($this->cpfValido($this->req['cpf'])) {
+
+								// se apelido e senha baterem
+								if ($this->isCorrect($this->req['apelido'], $this->req['senha'])) {
+
+									// registra voto
+									if ($this->adicionaVoto($this->req['apelido'], $this->req['nome'], $this->req['cpf'], $this->req['candidato'], $_SERVER['REMOTE_ADDR'])) {
+
+										// avisa que voto foi adicionado
+										$this->confirma();
+
+									} else {
+
+										// avisa voto nao pode ser adicionado
+										$this->msg = "Erro! Voto não pode ser adicionado. Tente mais tarde.";
+
+									}
+
+								} else {
+
+									// avisa usuario que apelido e senha nao conferem ou apelido está forbidado
+									$this->msg = "Erro! Apelido e Senha digitadas não conferem.";
+
+								}
+
+							} else {
+
+								// avisa que CPF é inválido
+								$this->msg = "Erro! CPF inválido.";
+
+							}
+
+						} else {
+
+							// avisa que nome completo é inválido
+							$this->msg = "Erro! Nome <b>".$this->req['nome']."</b> é inválido. Preencha seu nome corretamente ou seu voto será anulado e seu apelido bloqueado para uso.";
+
+						}
+
+					} else {
+
+						// apelido foi registrado muito recentemente. Ainda não tem direito a voto.
+						$this->msg = "Erro! Seu apelido <b>".$this->req['apelido']."</b> foi registrado muito recentemente. Ainda não tem direito a voto.";
+
+					}
+
+				} else {
+
+					// avisa que usuario já votou
+					$this->msg = "Erro! Usuário <b>".$this->req['apelido']."</b> já possui voto vinculado. Você não pode votar mais de uma vez.";
+
+				}
+
+			} else {
+
+				// avisa que candidato é inválido
+				$this->msg = "Erro! Candidato ".$this->req['candidato']." é inválido.";
+
+			}
+
+		}
+
+		// carrega pagina default
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'><font face='Verdana' size='2'><u>Votação para eleição dos IRCops</u></font></td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='1' cellpadding='7' cellspacing='0' width='70%' bgcolor='#f3f3f3' style='border-collapse: collapse;' bordercolor='#111111'>
+			  <tr>
+				<td width='100%'><font face='Verdana' size='2'><u>Vote Consciente</u>
+
+					<form name='voto'>
+						<table border='0' cellpadding='3' cellspacing='0' width='100%'>
+						  <tr>
+							<td width='100%' colspan='2'><font face='Verdana' size='1' color=red>".$this->msg."</font></td>
+						  </tr>
+						  <tr>
+							<td width='40%'><font face='Verdana' size='2'>Candidato:</font></td>
+							<td width='60%'><font face='Verdana'>
+								<select size='1' name='candidato'>
+									".$this->getCandidatos()."
+								</select>
+							</td>
+						  </tr>
+						  <tr>
+							<td width='40%'><font face='Verdana' size='2'>Seu Nome Completo:</font></td>
+							<td width='60%'><input type='text' name='nome' size='30' value='".$this->req['nome']."'></td>
+						  </tr>
+						  <tr>
+							<td width='40%'><font face='Verdana' size='2'>Seu CPF:</font></td>
+							<td width='60%'><input type='text' name='cpf' size='30' value='".$this->req['cpf']."'></td>
+						  </tr>
+						  <tr>
+							<td width='40%'><font face='Verdana' size='2'>Seu Apelido:</font></td>
+							<td width='60%'><input type='text' name='apelido' size='30' value='".$this->req['apelido']."'></td>
+						  </tr>
+						  <tr>
+							<td width='40%'><font face='Verdana' size='2'>Senha do Apelido:</font></td>
+							<td width='60%'><input type='password' name='senha' size='30'></td>
+						  </tr>
+						  <tr>
+							<td width='100%' colspan='2'><input type='button' value='Votar' onClick='parent.source.AjaxSendVote(); return false;'></td>
+						  </tr>
+						</table>
+					</form>
+
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'><p align='justify'><font face='Verdana' size='2'>
+				A eleição iniciou dia <b>xx/xx/xxxx</b> e encerrará dia <b>xx/xx/xxxx</b> (datas ainda não definidas). Os resultados serão divulgados em no
+				máximo 24h após o encerramento da votação. Serão promovidos a IRCop os <b>10 (dez)</b> candidatos mais votados.
+				O restante dos candidatos ficarão na fila para promoção caso algum IRCop eleito renuncie ou tenha sua candidatura impugnada.
+				O IRCop mais votado será também o responsável pela sala #Ajuda. Os eleitores deverão obedecer os seguintes
+				critérios para votarem:
+				<ul>
+					<li> Possuir CPF;</li>
+					<li> Ter registrado o apelido até o dia do início das eleições;</li>
+				</ul>
+				Terá o voto invalidado, o apelido e sala (se possuir alguma) bloqueados o eleitor que:
+				<ul>
+					<li> Tentar utilizar um número CPF que não lhe pertence;</li>
+					<li> Tentar votar mais de uma vez preenchendo o formulário com dados diferentes;</li>
+					<li> Tentar fraudar a votação de qualquer modo;</li>
+				</ul>
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function confirma() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Recuperação de Senha</u><br>
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='50%'>
+			  <tr>
+				<td width='100%'>
+					<p align='center'><font face='Verdana' size='2'>
+					A senha foi enviada para o email <u>".$this->req['email']."</u>.<br>
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function getCandidatos() {
+
+		$html = "<option value=''>Selecione um candidato:</option>".
+				"<option value=''></option>";
+
+		$result = mysql_query("select apelido from candidatos");
+		while ($row = mysql_fetch_array($result)) {
+
+			if ($this->req['candidato'] == $row['apelido'])
+				$selected = "selected";
+			else
+				$selected = "";
+
+			$html .= "<option value='".$row['apelido']."' $selected>- ".$row['apelido']."</option>";
+
+		}
+
+		return $html;
+
+	}
+
+	function candidatoValido($candidato) {
+
+		$result = mysql_query("select * from candidatos where apelido = '$candidato'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+	function usuarioJaVotou($usuario) {
+
+		$result = mysql_query("select apelido from candidatos_votos where apelido = '$usuario'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+	function getDataRegistro($usuario) {
+
+		$result = mysql_query("select ns_date from nickserv where ns_nick = '$usuario'");
+		if ($row = mysql_fetch_array($result)) {
+			return $row['ns_date'];
+		}
+
+        return 0;
+
+	}
+
+	function isCorrect($usuario, $senha) {
+
+		$util = new Util($this->conexao, $this->req);
+		$senha = $util->decrypt($senha);
+
+		$result = mysql_query("select ns_nick from nickserv where ns_nick = '$usuario' and ns_password = '$senha' and ns_forbid = '0'");
+		if ($row = mysql_fetch_array($result)) {
+			return true;
+		}
+
+        return false;
+
+	}
+
+	function nomeCompleto($usuario) {
+
+		$separa = explode(" ", $usuario);
+		if (count($separa) > 0)
+			return true;
+		else
+			return false;
+
+	}
+
+}
+
+?>

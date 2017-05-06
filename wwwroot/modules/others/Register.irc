@@ -1,0 +1,243 @@
+<?php
+require_once 'modules/util/Util.irc';
+require_once 'modules/util/Email.irc';
+
+class Register {
+
+	var $conexao;
+	var $req;
+	var $msg;
+	var $senha;
+
+	// construtor da classe
+	function Register(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se formulario conter apelido e email
+		if ($this->req['apelido'] && $this->req['email']) {
+
+			// cria instancia da classe Util
+			$util = new Util($this->conexao, $this->req);
+
+			// verifica se email tem uma minima validade
+			if ($util->isValidEmail($this->req['email'])) {
+
+				// verifica se apelido tem caracteres ilegais
+				if ($util->isValidNick($this->req['apelido'])) {
+
+					// se email ainda nao existir no banco de dados
+					// só é permitido um registro de apelido por email
+					if (!$util->isExistEmail($this->req['email'])) {
+
+						// se nick ainda nao estiver registrado, registra
+						if (!$util->isRegistered($this->req['apelido'])) {
+
+							// grava apelido no banco de dados
+							if ($this->registerNick($this->req['apelido'], $this->req['email'])) {
+
+								// envia email para o usuário
+								if (!$this->sendEmail($this->req['apelido'], $this->req['email'])) {
+									$this->msg = "Erro no envio do email.";
+								}
+
+								// avisa que apelido foi registrado com sucesso
+								echo $this->confirma();
+								die();
+
+							} else {
+
+								// avisa que apelido já está registrado
+								$this->msg = "Erro! Não foi possível gravar o apelido <u>".$this->req['apelido']."</u> no banco de dados.";
+
+							}
+
+						} else {
+
+							// avisa que apelido já está registrado
+							$this->msg = "Erro! Apelido <u>".$this->req['apelido']."</u> já está registrado no banco de dados. Escolha outro.";
+
+						}
+
+					} else {
+
+						// avisa que email já existe no banco de dados
+						$this->msg = "Erro! Endereço de email <u>".$this->req['email']."</u> já existe no banco de dados. Só é permitido o registro de um apelido por email. Cadastre um e-mail correto, pois é para ele que será enviada a sua senha.";
+
+					}
+
+				} else {
+
+					// avisa que apelido tem caracteres ilegais
+					$this->msg = "Erro! Apelido <u>".$this->req['apelido']."</u> é inválido por conter caracteres ilegais.";
+
+				}
+
+			} else {
+
+				// avisa que email é invalido
+				$this->msg = "Erro! Endereço de email possui caracteres inválidos. Cadastre um e-mail correto, pois é para ele que será enviada a sua senha.";
+
+			}
+
+		}
+
+		// carrega pagina default
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Registro de Apelido</u><br>
+				<br>
+				É simples, rápido e gratuito registrar um apelido no nosso chat. Basta você preencher
+				o formulário abaixo dizendo seu email e qual apelido deseja registrar.
+                Com um apelido registrado você poderá
+				registrar salas, desabilitar as dicas, adicionar salas de entrada automatica e muito, muito mais.
+				<br><br>
+				<u>Atenção</u>: O apelido não pode conter espaços nem pontuação.
+				</td>
+			  </tr>
+			</table>
+
+			<br>
+
+			<table align='center' border='1' cellpadding='7' cellspacing='0' width='50%' bgcolor='#f3f3f3' style='border-collapse: collapse;' bordercolor='#111111'>
+			  <tr>
+				<td width='100%'>
+
+				<form name='register'>
+				<table border='0' cellpadding='3' cellspacing='0' width='100%'>
+				  <tr>
+					<td width='100%' colspan='2'><font face='Verdana' size='1' color=red>".$this->msg."</font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Apelido:</font></td>
+					<td width='89%'><font face='Verdana'><input type='text' name='apelido' size='25' value='".$this->req['apelido']."'></font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Email:</font></td>
+					<td width='89%'><font face='Verdana'>
+						<input type='text' name='email' size='25' value='".$this->req['email']."'>
+					 	<input type='button' value='Registrar' onClick='parent.source.AjaxSendRegister(); return false;'></font>
+					</td>
+				  </tr>
+				</table>
+				</form>
+
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function confirma() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+					<p align='justify'><font face='Verdana' size='2'><u>Registro de Apelido</u>
+				</td>
+			  </tr>
+			</table>
+			<br>
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='70%'>
+			  <tr>
+				<td width='100%'>
+					<p align='center'><font face='Verdana' size='2'>
+					<b>Apelido <u>".$this->req['apelido']."</u> foi registrado com sucesso.<br>Abaixo seguem os dados:</b></p>
+				    <p align='justify'>
+				    Apelido: ".$this->req['apelido']."<br>
+				    Senha: ".$this->senha."<br><br>
+				    Para se identificar no webchat, preencha os seus dados no formulário presente no canto superior direito do webchat. Recomendamos fortemente que você modifique sua senha para uma de sua preferência. É bem simples, estando identificado com o seu apelido no bate-papo, digite: <b>/nickserv setpass novaSenha</b>
+				    <br><br>
+				    Obrigado!
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function registerNick($nick, $email) {
+
+		$util = new Util($this->conexao, $this->req);
+
+		$this->senha = $nick.rand(0, 9999);
+		$senha = $util->encrypt($this->senha);
+
+		$time = time()."000";
+
+		$result = mysql_query("INSERT INTO nickserv (ns_nick, ns_password, ns_email, ns_date, ns_last) ".
+                    "VALUES ('$nick', '$senha', '$email', '$time', '$time')");
+
+		if (mysql_affected_rows())
+			return true;
+		else
+			return false;
+
+	}
+
+	function sendEmail($nick, $email) {
+
+		// cria instancia da classe Util
+		$util = new Util($this->conexao, $this->req);
+
+		// pega senha
+		$result = mysql_query("select ns_password from nickserv where ns_nick = '$nick'");
+		if ($row = mysql_fetch_array($result)) {
+
+			$senha = $util->decrypt($row['ns_password']);
+
+			// monta mensagem do email
+			$msg = "Olá $nick, \n\n".
+				   "Esse email confirma o registro de seu apelido. Abaixo seguem os dados: \n\n".
+				   "Apelido: $nick \n".
+				   "Senha: $senha \n\n".
+				   "Como se identificar: \n".
+				   "Para pegar o seu apelido digite no bate-papo: /nick $nick \n".
+				   "E após isso identifique-se digitando: /pass $senha \n\n".
+				   "Outra opção é preencher com os seus dados o formulário presente no webchat. Recomendamos fortemente que você modifique sua senha para uma de sua preferência. É bem simples, estando identificado com o seu apelido no bate-papo, digite: /nickserv setpass novaSenha \n".
+				   "Obrigado! \n".
+				   "Att! \n\n".
+				   "Rede ChatMania \n".
+				   "http://www.chatmania.com.br \n";
+
+			$email = new Email("ChatMania", $email, "Registro de Apelido", $msg, "chatmania@chatmania.com.br");
+			if ($email->envia())
+				return true;
+			else
+				return false;
+
+		}
+
+		return false;
+
+	}
+
+}
+
+?>

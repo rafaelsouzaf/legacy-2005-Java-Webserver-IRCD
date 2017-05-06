@@ -1,0 +1,134 @@
+<?php
+
+// classe que imprime a pagina de frame
+class Blah {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Blah(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se a requisiçao tiver o termo Part
+		switch($this->req['Part']) {
+
+			// se requisitar o modulo Source
+			case "Source":
+
+				// importa modulo Source
+				require_once "modules/blah/Source.irc";
+
+				// chama instancia da classe
+				$source = new Source($this->conexao, $this->req);
+				$source->execute();
+				break;
+
+			// se requisitar o modulo Principal
+			case "Principal":
+
+				// importa modulo Principal
+				require_once "modules/blah/Principal.irc";
+
+				// chama instancia da classe
+				$principal = new Principal($this->conexao, $this->req);
+				$principal->execute();
+				break;
+
+			// se requisitar o modulo Send
+			case "Send":
+
+				// importa modulo Send
+				require_once "modules/blah/Send.irc";
+
+				// chama instancia da classe
+				$send = new Send($this->conexao, $this->req);
+				$send->execute();
+				break;
+
+			// se requisitar o modulo Users
+			case "Users":
+
+				// importa modulo Users
+				require_once "modules/blah/Users.irc";
+
+				// chama instancia da classe
+				$users = new Users($this->conexao, $this->req);
+				$users->execute();
+				break;
+
+			// se requisitar o modulo Top
+			case "Top":
+
+				// importa modulo Top
+				require_once "modules/blah/Top.irc";
+
+				// chama instancia da classe
+				$top = new Top($this->conexao, $this->req);
+				$top->execute();
+				break;
+
+			// senao
+			default:
+
+				// Cria sessão da pagina. Essa sessao deve ser criada nas
+				// páginas blah, top, users, envia, principal, e só depois
+				// se todas tiverem sido criadas, cria-las também na pagina
+				// source.
+				$_SESSION['Blah'] = 1;
+
+				// imprime pagina
+				echo $this->getText();
+
+		}
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<html>
+			<head>
+			<title>Blá Blá Blá</title>
+			</head>
+			<script>
+			if (screen.width > 1000) {
+				tamanho = '17%, 75%, 8%, 0%';
+				tamanhoLateral = '84%, *';
+			} else {
+				tamanho = '23%, 65%, 12%, 0%';
+				tamanhoLateral = '80%, *';
+			}
+			document.write('<frameset rows=\"' + tamanho + '\" framespacing=0 frameborder=NO border=0 resize=YES>');
+			document.write('<frame src=\"?modules=Blah&Part=Top&color=".$this->req['color']."\" name=topFrame scrolling=NO resize=YES>');
+			document.write('  <frameset cols=\"' + tamanhoLateral + '\" frameborder=YES border=1 framespacing=0>');
+			document.write('      <frame src=\"?modules=Blah&Part=Principal\" name=mainFrame scrolling=YES resize=YES>');
+			document.write('      <frame src=\"?modules=Blah&Part=Users&color=".$this->req['color']."\" name=rightFrame scrolling=YES resize=YES>');
+			document.write('  </frameset>');
+			document.write('<frame src=\"?modules=Blah&Part=Send&color=".$this->req['color']."\" name=bottomFrame scrolling=NO resize=YES>');
+			document.write('<frame src=\"?modules=Blah&Part=Source&apelido=".$this->req['apelido']."&sala=".$this->req['sala']."\" name=source scrolling=NO resize=no>');
+			document.write('</frameset>');
+			</script>
+			<body>
+			</body>
+			</html>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

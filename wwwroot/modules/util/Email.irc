@@ -1,0 +1,62 @@
+<?php
+
+// Essa classe tem como única função enviar emails.
+// Recebe como parametros os itens abaixo e retorna verdadeiro se
+// enviar email e falso se nao enviar.
+// - $de (remetente)
+// - $para (destinatario)
+// - $assunto (subject do email)
+// - $mensagem (conteudo do email)
+// - $emailRetorno (email return-path)
+
+class Email {
+
+	var $de;
+	var $para;
+	var $assunto;
+	var $mensagem;
+	var $emailRetorno;
+
+	function Email($de, $para, $assunto, $mensagem, $emailRetorno) {
+
+		$this->de = $de;
+		$this->para = $para;
+		$this->assunto = $assunto;
+		$this->mensagem = $mensagem;
+		$this->emailRetorno = $emailRetorno;
+
+	}
+
+	function envia() {
+
+		$headers .= "From: ChatMania<".$this->de.">\r\n";
+        $headers .= "X-Sender: <".$this->de.">\r\n";
+        $headers .= "X-Mailer: PHP\r\n";
+        $headers .= "X-Priority: 3\r\n";
+        $headers .= "Return-Path: <".$this->emailRetorno.">";
+
+		$email = mail($this->para, $this->assunto, trim($this->mensagem), $headers);
+
+		if ($email)
+			return true;
+		else
+			return false;
+
+	}
+
+}
+
+
+$to = 'rafael@chatmania.com.br';
+$subject = 'Wakeup bob!';
+$message = '<b>yo</b>, whassup?';
+$headers = "From: chatmania@chatmania.com\r\n" .
+       'X-Mailer: PHP/' . phpversion() . "\r\n" .
+       "MIME-Version: 1.0\r\n" .
+       "Content-Type: text/html; charset=utf-8\r\n" .
+       "Content-Transfer-Encoding: 8bit\r\n\r\n";
+
+// Send
+//mail($to, $subject, $message, $headers);
+
+?>

@@ -1,0 +1,9 @@
+
+-------------------------------------------
+File    : 17:59 - Get.java
+Command : /GET /images/header.js HTTP/1.1
+Error   : java.net.SocketException: Software caused connection abort: socket write error
+-------------------------------------------
+File    : 18:06 - Get.java
+Command : /GET /images/header.js HTTP/1.1
+Error   : java.net.SocketException: Software caused connection abort: socket write error

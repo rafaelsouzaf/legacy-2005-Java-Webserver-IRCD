@@ -1,0 +1,253 @@
+
+-------------------------------------------
+File    : 18:52 - Kline.java
+Command : Kline()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:54 - Kline.java
+Command : Kline()
+Error   : java.lang.NullPointerException
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:54 - Get.java
+Command : /GET //index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:58 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 18:59 - Get.java
+Command : /GET /index.irc HTTP/1.1
+Error   : java.io.IOException: Cannot run program "C:\PHP\php-cgi.exe": CreateProcess error=2, The system cannot find the file specified
+-------------------------------------------
+File    : 19:00 - Kline.java
+Command : Kline()
+Error   : java.lang.NullPointerException

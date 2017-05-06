@@ -1,0 +1,126 @@
+<?php
+require_once ("modules/util/Email.irc");
+
+// classe que imprime a pagina de frame
+class Contact {
+
+	var $conexao;
+	var $req;
+	var $msg;
+
+	// construtor da classe
+	function Contact(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se todos os campos estiverem preenchidos
+		if ($this->req['name'] && $this->req['email'] && $this->req['subject'] && $this->req['message']) {
+
+			// envia email
+			$email = new Email($this->req['email'], "chatmania@chatmania.com.br", "Contact - ".$this->req['subject'], $this->req['message'], $this->req['email']);
+			if ($email->envia()) {
+
+				// avisa usuario
+				echo $this->getTextConfirm();
+				die();
+
+			} else {
+
+				// avisa que campos devem ser preenchidos
+				$this->msg = "Erro! Problema no envio do email. Tente mais tarde.";
+
+			}
+
+		}
+
+		// e recarrega formulario
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'><font face='Verdana' size='2'><u>Contato</u></font></td>
+			  </tr>
+			</table>
+			<br>
+			<table align='center' border='1' cellpadding='3' cellspacing='0' style='border-collapse: collapse' width='60%' bgcolor='#f3f3f3'>
+			  <tr>
+				<td width='100%' align='justify'><font face='Verdana' size='2'>
+				Reclamações, sugestões, dúvidas ou denúncias? Está no lugar certo. Entre em contato conosco.
+				<br><br>
+				<form name='contact'>
+				<table border='0' cellpadding='3' cellspacing='0' width='100%'>
+			  	  <tr>
+					<td width='100%' colspan='2'><font face='Verdana' size='1' color='red'>".$this->msg."</font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Nome:</font></td>
+					<td width='89%'><font face='Verdana'><input type='text' name='name' value='".$this->req['name']."' size='33'></font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Email:</font></td>
+					<td width='89%'><font face='Verdana'><input type='text' name='email' value='".$this->req['email']."' size='33'></font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Assunto:</font></td>
+					<td width='89%'><font face='Verdana'><input type='text' name='subject' value='".$this->req['subject']."' size='33'></font></td>
+				  </tr>
+				  <tr>
+					<td width='11%'><font face='Verdana' size='2'>Mensagem:</font></td>
+					<td width='89%'>&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td width='100%' colspan='2'><font face='Verdana'>
+					<textarea name='message' rows='7' cols='46'>".$this->req['message']."</textarea></font></td>
+				  </tr>
+				  <tr>
+					<td width='100%' colspan='2'><font face='Verdana'>
+					<input type='button' onClick='parent.source.AjaxSendEmail(); return false;' value='Enviar' name='send'></font></td>
+				  </tr>
+				</table>
+				</form>
+
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+	function getTextConfirm() {
+
+		$html = "
+
+			<br><br><br>
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='100%'>
+			  <tr>
+				<td width='100%' align='center'><font face='Verdana' size='1'>Formulário enviado com sucesso.<br>Em breve entraremos em contato!</font></td>
+			  </tr>
+			</table>
+			<br>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

@@ -1,0 +1,151 @@
+<?php
+
+class Privacy {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Privacy(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='5' cellspacing='0' width='100%'>
+			  <tr>
+				<td width='50%' align='center'><font face='Verdana' size='1'><a href='#'>Regras das Eleições</a></td>
+				<td width='50%' align='center'><font face='Verdana' size='1'><a href='#'>Regras dos IRCops</a></td>
+			  </tr>
+			</table>
+
+			<table border='1' cellpadding='9' cellspacing='0' style=\"border-collapse: collapse\" bordercolor='#111111' width='100%'>
+			  <tr>
+				<td width='100%' colspan='2' bgcolor='#eeeeee'><font face='Verdana' size='1'><b>ChatMania</b> - <u>Regras
+				de Utilização e Política de Privacidade</u></td>
+			  </tr>
+			  <tr>
+				<td width='71%'>
+				<p align='justify'><font face='Verdana' size='1'>Art.1º - A utilização dos
+				serviços do ChatMania requer a aceitação plena das regras abaixo.<br>
+				<br>
+				Art.2º - Ao utilizá-lo, o usuário deverá fazê-lo de forma correta e lícita e
+				em estrita obediência à lei. Deve também fazer uso diligente das senhas de
+				acesso, mantê-las em segredo.<br>
+				<br>
+				Art.3º - O usuário é o responsável exclusivo por todas as ações ou omissões
+				realizadas com seu apelido ou senha, inclusive sobre o conteúdo de suas
+				transmissões através do serviço. O uso do serviço é feito sob sua única e
+				exclusiva responsabilidade civil e penal.<br>
+				<br>
+				Art.4º - O ChatMania não garante a confiabilidade, a disponibilidade, a
+				atualização e a continuidade do funcionamento dos serviços. Os serviços são
+				fornecidos &quot;tal como está&quot; (&quot;as is&quot;), sem qualquer tipo de garantia.<br>
+				<br>
+				Art.5º - O ChatMania não garante a privacidade e segurança da utilização do
+				bate-papo e dos serviços. Também não garante que terceiros não autorizados
+				não possam ter conhecimento do uso ou manipular as mensagens enviadas.<br>
+				<br>
+				Art.6º - O ChatMania não é responsável pela prestação de serviços ou bens,
+				vendidos ou anunciados por terceiros. As negociações com anunciantes no
+				serviço ou participação em promoções são realizadas exclusivamente entre o
+				usuário e o anunciante ou terceiro.<br>
+				<br>
+				Art.7º - O ChatMania não é responsável pelo conteúdo dos links divulgados. A
+				inclusão de um link não significa aprovação do ChatMania sobre o conteúdo do
+				site.<br>
+				<br>
+				Art.8º - O ChatMania não se responsabiliza pelas opiniões e comentários dos
+				freqüentadores do bate-papo ou do seu site. O conteúdo de cada mensagem ou
+				texto é de única e exclusiva responsabilidade civil e penal do autor da
+				mensagem.<br>
+				<br>
+				Art.9º - O ChatMania também não é responsável pelas atitudes de operadores
+				de salas, ircops, admins, os quais também se submetem a estas regras,
+				zelando pela sua observância, respondendo civil e criminalmente pelos seus
+				próprios atos.<br>
+				<br>
+				Art.10º - O ChatMania fica reservado o direito de, a qualquer momento e sem
+				prévio aviso, monitorar, reter e divulgar qualquer informação publicada no
+				bate-papo, seja de natureza publica ou privada, conforme necessário para
+				cumprir as regras estabelecidas, a legislação ou ordem judicial.<br>
+				<br>
+				Art.11º - O ChatMania fica reservado o direito de informar às autoridades
+				policiais e judiciais sobre violações destas disposições e de cooperar com
+				elas.<br>
+				<br>
+				Art.12º - O ChatMania fica reservado o direito de, a qualquer momento e sem
+				prévio aviso, recusar ou retirar o acesso ao bate-papo e aos serviços ou
+				fechar salas daqueles usuários que descumpram estas regras de uso ou que
+				possam induzir à pratica de atividades ilegais.<br>
+				<br>
+				Art.13º - O ChatMania fica reservado o direito de realizar publicidade, de
+				conteúdo e formato a seu critério, em todas os veículos de mensagens
+				enviadas e recebidas através dos serviços.<br>
+				<br>
+				Art.14º - O ChatMania não se responsabiliza por qualquer dano supostamente
+				decorrente do uso deste serviço e se reserva o direito de modificar estas
+				regras de uso a qualquer momento, a seu exclusivo critério.<br>
+				<br>
+				Art.15º - A participação do usuário no serviço de bate-papo está
+				condicionada à aceitação integral e incondicional das regras acima expostas.
+				</td>
+				<td width='29%' bgcolor='#eeeeee' valign='top'>
+				<p align='center'><font face='Verdana' size='1'><u><b>Atenção</b></u></p>
+				<p align='justify'><font face='Verdana' size='1'>* O uso destes sistemas não é um direito, e sim um
+				privilégio. Caso você desrespeite alguma de nossas regras, você poderá
+				sofrer as sanções cabíveis em sua vida virtual, desde o banimento em salas
+				de bate-papo, passando pelo congelamento do seu apelido, e até mesmo a sua
+				expulsão ou a expulsão do seu provedor inteiro de nosso sistema.</p>
+				<p align='center'><font face='Verdana' size='1'><u><b>Não é permitido</b></u></p>
+				<p align='justify'><font face='Verdana' size='1'>* Publicar mensagens comerciais, enviar spam ou mensagens
+				para um grande número de usuários por sistemas automáticos.<br>
+				<br>
+				* Publicar cenas de sexo explícito ou pornografia envolvendo menores de 18
+				anos. Isso é crime sujeito a pena de reclusão de 2 (dois) a 6 (seis) anos e
+				multa.<br>
+				<br>
+				* Trocar mensagens ligadas a pornografia infantil, exploração sexual de
+				menores ou pedofilia.<br>
+				<br>
+				* O uso de linguagem ofensiva, grosseira ou racista ou publicação de
+				material calunioso, abusivo ou que invada a privacidade de alguém.<br>
+				<br>
+				* Divulgar informações sobre atividades ilegais ou que incitem a crime.<br>
+				<br>
+				* Criar salas com a finalidade de distribuir arquivos ilegais, piratas ou
+				warez, sejam eles softwares, músicas ou vídeos.<br>
+				<br>
+				* Para garantir o cumprimento das regras o ChatMania poderá usar bloqueio de
+				endereços IP, bloqueio de acesso a salas de bate-papo e apelidos.</td>
+			  </tr>
+			  <tr>
+				<td width='100%' colspan='2' bgcolor='#eeeeee'>
+				<p align='right'><font face='Verdana' size='1'>www.ChatMania.com.br</td>
+			  </tr>
+			</table>
+			
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

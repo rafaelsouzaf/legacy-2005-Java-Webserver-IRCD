@@ -1,0 +1,80 @@
+<?php
+
+class About {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function About(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<table align='center' border='0' cellpadding='3' cellspacing='0' width='90%'>
+			  <tr>
+				<td width='100%'>
+				<p align='justify'><font face='Verdana' size='2'><u>Sobre</u><br>
+				<br>
+				A falta de funcionalidades básicas e óbvias e a complexidade dos recursos
+				administrativos dos atuais softwares de chat disponíveis no
+				mercado foram as principais motivações para o desenvolvimento do <b>ChatMania</b>.<br>
+				<br>
+				Algumas características: Multi-plataforma; Acesso a múltiplas salas simultaneamente;
+				Sistema de abas para chats privados e salas; Possibilidade de troca de apelido online;
+				Sistema de hierarquia (IRCop, Dono, Operador, Voice); Sistema de registro de salas e de apelidos;
+				Acesso rápido as últimas frases enviadas; Auto-completar dos apelidos através da tecla TAB;
+				Dispensa qualquer tipo de plugin como Java Applet ou Flash; Armazenamento de informações em SQL;
+				Conexão pela porta 80, fugindo da detecção de firewals; Muitos dos recursos que o protocolo IRC possibilita;
+				Sistema multi-linguagem automático; Criação de arquivo XML com os dados das salas;
+				E muito, muito mais.
+				<br><br>
+				<u>WebChat</u>
+				<br><br>
+				É bem fácil adicionar o webchat do ChatMania em sua home-page. Nosso webchat permite que você escolha a cor do layout
+				que mais se adequar ao seu site. Abaixo estão exemplos de links para acesso ao chat:
+				<br><br>
+				- Para acesso a uma sala sem que o usuário defina seu apelido. Um apelido genérico será gerado automaticamente:<br>
+				<font color='#0000ff'>http://www.chatmania.com.br/blah.irc?sala=Sala1</font>
+				<br><br>
+				- Para acesso a duas ou mais salas (basta separar o nome das salas com virgula):<br>
+				<font color='#0000ff'>http://www.chatmania.com.br/blah.irc?<b>sala=Sala1,Sala2,Sala3</b></font>
+				<br><br>
+				- Para acesso a duas salas com apelido do usuário definido:<br>
+				<font color='#0000ff'>http://www.chatmania.com.br/blah.irc?sala=Sala1,Sala2&<b>apelido=John</b></font>
+				<br><br>
+				- Para acesso a duas salas com apelido definido e com o layout de cor Azul:<br>
+				<font color='#0000ff'>http://www.chatmania.com.br/blah.irc?sala=Sala1,Sala2&apelido=John&<b>color=blue</b></font>
+				<br><br>
+				<u>Desenvolvido por:</u>
+				<br><br>
+				Rafael Souza Fijalkowski</font></p>
+				</td>
+			  </tr>
+			</table>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

@@ -1,0 +1,41 @@
+<?php
+
+// importa classe template
+require_once "templates/TemplateSend.irc";
+
+// classe que imprime a pagina de frame
+class Send extends TemplateSend {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Send(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// Cria sessão da pagina. Essa sessao deve ser criada nas
+		// páginas blah, top, users, envia, principal, e só depois
+		// se todas tiverem sido criadas, cria-las também na pagina
+		// source.
+		$_SESSION['Send'] = 1;
+
+		// define cor
+		$this->color = $this->req['color'];
+
+		// imprime pagina
+		echo parent::getTemplate();
+
+	}
+
+}
+
+?>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="module_ircd" default="compile.module.ircd">
+  <dirname property="module.ircd.basedir" file="${ant.file.module_ircd}"/>
+  
+  <property name="module.jdk.home.ircd" value="${project.jdk.home}"/>
+  <property name="module.jdk.classpath.ircd" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ircd" value="${compiler.args}"/>
+  
+  <property name="ircd.output.dir" value="${module.ircd.basedir}/classes"/>
+  <property name="ircd.testoutput.dir" value="${module.ircd.basedir}/classes"/>
+  
+  <path id="ircd.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ircd.module.classpath">
+    <path refid="${module.jdk.classpath.ircd}"/>
+    <pathelement location="${module.ircd.basedir}/../lib/mail.jar"/>
+    <pathelement location="${module.ircd.basedir}/../lib/activation.jar"/>
+    <pathelement location="${module.ircd.basedir}/../lib/mysql-connector-java-3.1.11-bin.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ircd"/>
+  
+  <patternset id="excluded.from.compilation.ircd">
+    <patternset refid="excluded.from.module.ircd"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+  
+  <path id="ircd.module.sourcepath">
+    <dirset dir="${module.ircd.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ircd" depends="compile.module.ircd.production,compile.module.ircd.tests" description="compile module ircd"/>
+  
+  <target name="compile.module.ircd.production" description="compile module ircd production classes">
+    <mkdir dir="${ircd.output.dir}"/>
+    <javac destdir="${ircd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memoryMaximumSize="${compiler.max.memory}" fork="true" executable="${module.jdk.home.ircd}/bin/javac">
+      <compilerarg line="${compiler.args.ircd}"/>
+      <bootclasspath refid="ircd.module.bootclasspath"/>
+      <classpath refid="ircd.module.classpath"/>
+      <src refid="ircd.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ircd"/>
+    </javac>
+    <copy todir="${ircd.output.dir}">
+      <fileset dir="${module.ircd.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ircd"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ircd.tests" depends="compile.module.ircd.production" description="compile module ircd test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ircd" description="cleanup module">
+    <delete dir="${ircd.output.dir}"/>
+    <delete dir="${ircd.testoutput.dir}"/>
+  </target>
+</project>

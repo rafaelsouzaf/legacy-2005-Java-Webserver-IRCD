@@ -1,0 +1,63 @@
+<?php
+
+// classe que imprime a pagina de frame
+class Source {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Source(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// Cria sessão da pagina. Essa sessao deve ser criada nas
+		// páginas blah, top, users, envia, principal, e só depois
+		// se todas tiverem sido criadas, cria-las também na pagina
+		// source.
+		$_SESSION['Source'] = 1;
+
+		// se todas as paginas ainda nao forem carregadas
+		// pausa por segundos
+		if ($_SESSION['Blah'] && $_SESSION['Send'] && $_SESSION['Principal'] && $_SESSION['Top'] && $_SESSION['Users']) {
+
+			sleep(2);
+
+		}
+
+		// imprime pagina
+		echo $this->getText();
+		include 'modules/blah/sourcejs.irc';
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
+				\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+			<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"pt-br\" lang=\"pt-br\">
+			<!-- ChatMania by Rafael S. Fijalkowski -->
+			<!-- http://www.chatmania.com.br/   -->
+			<head>
+			</head>
+			<body>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

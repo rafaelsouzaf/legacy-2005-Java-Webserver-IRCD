@@ -1,0 +1,44 @@
+<?php
+
+class NotFound {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function NotFound(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<br><br>
+			<p align='center'><font face='Verdana' size='2'><u><b>
+			Opss! Página não encontrada.</u><br>
+			</b></font></p>
+			<br><br><br><br>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

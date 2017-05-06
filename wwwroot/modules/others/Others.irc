@@ -1,0 +1,129 @@
+<?php
+
+class Others {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Others(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// se a requisiçao tiver o termo Part
+		switch($this->req['Part']) {
+
+			// se requisitar o modulo About
+			case "About":
+
+				// importa modulo About
+				require_once "modules/others/About.irc";
+
+				// chama instancia da classe
+				$about = new About($this->conexao, $this->req);
+				$about->execute();
+				break;
+
+			// se requisitar o modulo Eleicoes
+			case "Eleicoes":
+
+				// importa modulo Eleicoes
+				require_once "modules/others/Eleicoes.irc";
+
+				// chama instancia da classe
+				$eleicoes = new Eleicoes($this->conexao, $this->req);
+				$eleicoes->execute();
+				break;
+
+			// se requisitar o modulo Help
+			case "Help":
+
+				// importa modulo Help
+				require_once "modules/others/Help.irc";
+
+				// chama instancia da classe
+				$help = new Help($this->conexao, $this->req);
+				$help->execute();
+				break;
+
+			// se requisitar o modulo Privacy
+			case "Privacy":
+
+				// importa modulo Privacy
+				require_once "modules/others/Privacy.irc";
+
+				// chama instancia da classe
+				$privacy = new Privacy($this->conexao, $this->req);
+				$privacy->execute();
+				break;
+
+			// se requisitar o modulo ListRoom
+			case "ListRoom":
+
+				// importa modulo ListRoom
+				require_once "modules/others/ListRoom.irc";
+
+				// chama instancia da classe
+				$listroom = new ListRoom($this->conexao, $this->req);
+				$listroom->execute();
+				break;
+
+			// se requisitar o modulo Vote
+			case "Vote":
+
+				// importa modulo Vote
+				require_once "modules/others/Vote.irc";
+
+				// chama instancia da classe
+				$vote = new Vote($this->conexao, $this->req);
+				$vote->execute();
+				break;
+
+			// se requisitar o modulo Register
+			case "Register":
+
+				// importa modulo Register
+				require_once "modules/others/Register.irc";
+
+				// chama instancia da classe
+				$register = new Register($this->conexao, $this->req);
+				$register->execute();
+				break;
+
+			// se requisitar o modulo Getpass
+			case "Getpass":
+
+				// importa modulo Getpass
+				require_once "modules/others/Getpass.irc";
+
+				// chama instancia da classe
+				$getpass = new Getpass($this->conexao, $this->req);
+				$getpass->execute();
+				break;
+
+			// se requisitar o modulo NotFound
+			default:
+
+				// importa modulo NotFound
+				require_once "modules/others/NotFound.irc";
+
+				// chama instancia da classe
+				$notfound = new NotFound($this->conexao, $this->req);
+				$notfound->execute();
+				break;
+
+		}
+
+	}
+
+}
+
+?>

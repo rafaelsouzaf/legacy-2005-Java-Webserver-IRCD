@@ -1,0 +1,93 @@
+<?php
+
+// classe que imprime a pagina de frame
+class Principal {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Principal(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// Cria sessão da pagina. Essa sessao deve ser criada nas
+		// páginas blah, top, users, envia, principal, e só depois
+		// se todas tiverem sido criadas, cria-las também na pagina
+		// source.
+		$_SESSION['Principal'] = 1;
+
+		// imprime pagina
+		echo $this->getText();
+
+	}
+
+	function getText() {
+
+		$html = "
+
+			<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
+				\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+			<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"pt-br\" lang=\"pt-br\">
+			<head>
+			<title></title>
+			<style type='text/css'>
+			<!--
+				body {
+				overflow-x: hidden;
+				overflow-y: auto;
+				background-color: white;
+				background-image: url(images/fundo.gif);
+				background-repeat: no-repeat;
+				background-position: center;
+				background-attachment: fixed;
+				margin-left: 5px;
+				margin-top: 5px;
+				margin-right: 5px;
+				margin-bottom: 5px;
+				scrollbar-face-color: #fffff;
+				scrollbar-shadow-color: #ffffff;
+				scrollbar-highlight-color: #ffffff;
+				scrollbar-3dlight-color:  #efae00;
+				scrollbar-darkshadow-color: #efae00;
+				scrollbar-track-color: #fff7e0;
+				scrollbar-arrow-color: #005093;
+			}
+
+			TD {
+				font-family: 'Fixedsys';
+				font-size: 10pt;
+			}
+
+			.link { text-decoration: none; color: #0000FF}
+			.link:hover { text-decoration: underline; color: #0000FF}
+			.link:active { text-decoration: none; color: #0000FF}
+			-->
+			</style>
+			</head>
+			<body oncontextmenu='return false;' onClick='parent.source.esconde()'>
+			<table cellSpacing=0 cellPadding=0 width='100%' border=0 style='line-height: 110%'>
+				<tr>
+					<td width='100%' valign='top'><div id='main'>Aguarde.<br>Conectando...</div></td>
+				</tr>
+			</table>
+			</body>
+			</html>
+
+		";
+
+		return $html;
+
+	}
+
+}
+
+?>

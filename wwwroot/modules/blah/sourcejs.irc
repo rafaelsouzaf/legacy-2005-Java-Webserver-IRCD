@@ -1,0 +1,836 @@
+<?php
+if (!$_SESSION['Source'])
+	die();
+?>
+
+<script language='JavaScript'><!--
+
+browserName=navigator.appName.charAt(0);
+browserVer=parseInt(navigator.appVersion);
+
+var mMsg  = {};
+var wCanal = {};
+var wUsers = {};
+var janelas = '';
+var janelaAtual	 = 'Status';
+var janelaUltima = 'Status';
+var secret		 = '';
+var meuNick		 = '';
+var stilo		 = '';
+
+var ultimoEncontrado = '';
+var nickPartUltimo = '';
+
+var T = new Array();
+var i = 0;
+var j;
+
+function users(namelist, canal, meuNick) {
+
+	// se meuNick for diferente do nick atual, entao muda
+	// essa parte eh responsavel pela mudança do apelido do usuario
+	if (meuNick != this.meuNick) {
+
+		// atualiza nick atual
+		this.meuNick  = meuNick;
+
+		if (parent.rightFrame.document.getElementById('your_nick'))
+			parent.rightFrame.document.getElementById('your_nick').innerHTML = '<font face=Verdana size=2><b>' + meuNick + '<b>';
+
+	}
+
+	wCanal[canal] = canal;
+	wUsers[canal] = namelist;
+
+	if (canal == janelaAtual)
+		imprimeUsers(canal);
+
+}
+
+function imprimeUsers(canal) {
+
+	if ((canal.charAt(0) == '#') && (wUsers[canal])) {
+
+		s = '<table align=center bgcolor=#FFFFFF border=0 cellpadding=1 cellspacing=0 style=\"border-collapse: collapse; border-left-style: solid; border-left-width: 1; border-right-style: solid; border-right-width: 1; border-bottom-style: solid; border-bottom-width: 1;\" bordercolor=#111111 width=100%>';
+		names = wUsers[canal].split(':');
+		for (a = 0; a < names.length; a++) {
+
+		    if (names[a].length > 0) {
+
+				nickLimpo = names[a];
+
+				if ((nickLimpo.charAt(0) == '.') || (nickLimpo.charAt(0) == '@')) {
+
+					if (browserName=="N")
+						imagem = "<img border=0 src=images/martelo.gif width=16 height=13>";
+					else
+						imagem = "<font face='Arial' size=2><b>@</b></font>";
+
+					nickLimpo = nickLimpo.substring(1);
+					names[a] = names[a].substring(1);
+
+				} else if (nickLimpo.charAt(0) == '+') {
+
+					imagem = "<font face='Microsoft Sans Serif' size=2 color=#FF00FF>+</font>";
+					nickLimpo = nickLimpo.substring(1);
+					names[a] = names[a].substring(1);
+
+				} else {
+
+					imagem = "<font face='Microsoft Sans Serif' size=2> &gt;</font>";
+
+				}
+
+				// se nick for meu nick
+				if (nickLimpo == this.meuNick)
+					names[a] = '<b>' + nickLimpo + '</b>';
+				else if (names[a].length >= 14)
+					names[a] = nickLimpo.substring(0,14)
+
+				s += "<tr><td width=100% OnMouseOver='this.style.background=\"#f3f3f3\"' OnMouseOut='this.style.background=\"#ffffff\"'>"
+						+ imagem + "&nbsp;<a onMouseOver='parent.source.mostra(event, \"" + nickLimpo + "\")' class=users href=# onclick='javascript:parent.source.privado(\"" + nickLimpo + "\");'>" + names[a] + "</a></td></tr>";
+
+			}
+		}
+		s += '</table>';
+
+		if (parent.rightFrame.document.getElementById('text')) {
+			parent.rightFrame.document.getElementById('text').innerHTML = s;
+			parent.rightFrame.document.getElementById('sala').innerHTML = wCanal[canal];
+			parent.rightFrame.document.getElementById('numero_users').innerHTML = '(' + names.length + ')';
+		}
+
+		// seta titulo
+	   	parent.document.title = ' :: ' + wCanal[canal] + ' (' + names.length + ' Usuários) ::';
+
+	} else {
+
+		if (parent.rightFrame.document.getElementById('text')) {
+			parent.rightFrame.document.getElementById('text').innerHTML = ' ';
+			parent.rightFrame.document.getElementById('sala').innerHTML = canal;
+			parent.rightFrame.document.getElementById('numero_users').innerHTML = '';
+		}
+
+		// seta titulo
+	   	parent.document.title = ' :: ' + canal + ' ::';
+
+	}
+
+}
+
+function main(janela, msg, nivel, scrool) {
+
+	if (janela == 'Atual')
+		janela = this.janelaAtual;
+
+	// se this.janela nao conter a janela em questao
+	// adicionar janela ao this.janela
+	if (this.janelas.indexOf(':' + janela + ':') == -1) {
+		addJanelas(janela);
+		if ((janela.charAt(0) == '#') || (nivel == 1))
+			hierarquia(janela);
+	}
+
+	mMsg[janela] += msg;
+
+	if (janela == this.janelaAtual) {
+
+		if (parent.mainFrame.document.getElementById('main')) {
+			parent.mainFrame.document.getElementById('main').innerHTML = mMsg[janela];
+
+			// se scrool for 1
+			if (scrool == 1)
+				parent.mainFrame.window.scrollBy(0, 300);
+		}
+
+	} else {
+
+		parent.topFrame.document.getElementById(janela).style.fontStyle='italic';
+		parent.topFrame.document.getElementById(janela).style.backgroundColor='#F0F0F0';
+
+	}
+
+	if (mMsg[janela].length > 20000)
+		mMsg[janela] = mMsg[janela].substring(2000);
+
+}
+
+function hierarquia(wind) {
+
+	// se a janela nao tiver mensagens
+	// entao janela passa a ser Status
+	if (mMsg[wind] == null)
+		wind = 'Status';
+
+	// se existir a ultima janela, entao a define como branco
+   	if (parent.topFrame.document.getElementById(this.janelaAtual))
+		parent.topFrame.document.getElementById(this.janelaAtual).style.backgroundColor='#FFFFFF';
+
+	this.janelaUltima = this.janelaAtual;
+	this.janelaAtual = wind;
+
+	// imprime conteudo
+	if (parent.mainFrame.document.getElementById('main'))
+		parent.mainFrame.document.getElementById('main').innerHTML = mMsg[wind];
+
+	// atualiza lista de users
+	imprimeUsers(wind);
+
+	// muda a cor do TD e o estilo de fonte para normal
+	if (parent.topFrame.document.getElementById(wind)) {
+	    parent.topFrame.document.getElementById(wind).style.backgroundColor='#FFE9B9';
+	    parent.topFrame.document.getElementById(wind).style.fontStyle='normal';
+    }
+
+	// esconde menu de opcoes
+	esconde();
+
+	// seta barra de status
+	self.status = ' :: ' + wind + ' ::';
+
+	// se o primeiro caracter for @, entao desativa envio de mensagem
+	// senao limpa mensagem, ativa e seta focus
+	if (wind.charAt(0) == '@') {
+
+		if (parent.bottomFrame.document.envia) {
+			parent.bottomFrame.document.envia.msg.value="Selecione um bate-papo nas abas acima.";
+			parent.bottomFrame.document.envia.msg.disabled=true;
+		}
+	} else {
+
+		if (parent.bottomFrame.document.envia) {
+			parent.bottomFrame.document.envia.msg.value="";
+			parent.bottomFrame.document.envia.msg.disabled=false;
+			getFocus();
+		}
+	}
+
+	// barra de rolagem
+	if (wind.charAt(0) != '@')
+		parent.mainFrame.window.scrollTo(0, 20000);
+
+}
+
+function keyDown(e) {
+
+	source = parent.bottomFrame.document.envia.msg;
+	nKey = 0;
+
+    if (browserName=="N" && browserVer >= 4)
+		nKey = e.which;
+	else if (browserName=="M" && browserVer >= 4)
+		nKey = parent.bottomFrame.event.keyCode;
+
+	if (nKey == 38) {
+
+		Ant();
+
+	} else if (nKey == 40) {
+
+		Seg();
+
+	// caracter negrito
+	} else if (nKey == 66) {
+
+		if (nKey == 66 && parent.bottomFrame.event.ctrlKey) {
+
+			source.value = source.value + '';
+			return false;
+
+		}
+
+	// caracter color
+	} else if (nKey == 75) {
+
+		if (nKey == 75 && parent.bottomFrame.event.ctrlKey) {
+
+			source.value = source.value + '';
+			return false;
+
+		}
+
+	// caracter sublinhado
+	} else if (nKey == 85) {
+
+		if (nKey == 85 && parent.bottomFrame.event.ctrlKey) {
+
+			source.value = source.value + '';
+			return false;
+
+		}
+
+	} else if (nKey == 9) {
+
+		tabIndex = source.value.lastIndexOf(' ');
+		nickPart = source.value.substr(tabIndex+1 || tabIndex).toLowerCase();
+
+		// se nickPart for diferente de nada
+		if ((nickPart != '') && (wUsers[janelaAtual])) {
+
+			// se nickPart tiver como caracter 0 o #
+			if (nickPart.charAt(0) == '#') {
+
+				source.value = source.value.substring(0, tabIndex + 1) + janelaAtual;
+
+			} else {
+
+				// se nickPart atual conter a ultima pesquisa entre seus caracteres
+				// entao é porque usuario esta insistinfo na mesma busca por nick diferentes
+				if ((nickPart.indexOf(nickPartUltimo) != -1) && (nickPartUltimo != ''))
+					nickPart = nickPartUltimo;
+
+				names = wUsers[janelaAtual].split(':');
+				for (a = 0; a < names.length; a++) {
+
+					// retira status da frente dos nicks
+					names[a] = names[a].replace(".", "").replace("@", "").replace("+", "");
+
+					// se lista dos ultimoEncontrado nao tiver o names[a]
+					if (ultimoEncontrado.indexOf(';' + names[a] + ';') == -1) {
+
+						// verifica se o primeiro caracter das duas palavras
+						// sao iguais, necessario!
+						if (names[a].charAt(0).toLowerCase() == nickPart.charAt(0).toLowerCase()) {
+
+							if (names[a].toLowerCase().indexOf(nickPart) != -1) {
+
+								source.value = source.value.substring(0, tabIndex + 1) + names[a];
+								source.focus();
+								nickPartUltimo = nickPart;
+								ultimoEncontrado += ';' + names[a] + ';';
+								return false;
+
+							}
+
+						}
+
+					}
+
+				}
+
+				// limpa lista de ultimoEncontrado... se o for passou sem encontrar
+				// nenhum usuario é porque nao tem mais nenhum e deve entao recomeçar
+				ultimoEncontrado = '';
+
+			}
+
+		}
+
+		return false;
+
+	}
+
+}
+
+function Ant() {
+	if(j) {
+		j--;
+		parent.bottomFrame.document.envia.msg.value=T[j];
+	}
+	getFocus();
+}
+
+function Seg() {
+
+	if (j < T.length-1) {
+		j++;
+		parent.bottomFrame.document.envia.msg.value=T[j];
+	} else {
+		j=i;
+		parent.bottomFrame.document.envia.msg.value='';
+	}
+	getFocus();
+
+}
+
+function setaStilo(c) {
+	if (c == 'normal')
+		stilo = '';
+	else
+		stilo += c;
+
+	getFocus();
+}
+
+function addJanelas(nome) {
+	this.janelas += ':' + nome + ':';
+	mMsg[nome] = '';
+	imprimeTop();
+}
+
+function fechaJanela(nome) {
+
+	if (mMsg[this.janelaUltima] == null)
+		this.janelaUltima = 'Status';
+
+	this.janelas = this.janelas.replace(':' + nome + ':', '');
+	imprimeTop();
+
+	if (nome.charAt(0) == '#')
+		comando('/part ' + nome);
+
+	delete wCanal[nome];
+	delete wUsers[nome];
+	delete mMsg[nome];
+
+	hierarquia(this.janelaUltima);
+
+}
+
+function imprimeTop() {
+
+	separa = this.janelas.split(':');
+
+	tabela = "<table border=1 bgcolor=#FFFFFF bordercolor=#000000 cellpadding=0 cellspacing=0 style='border-collapse: collapse;' bordercolor=#C0C0C0><tr>";
+	for (a = 0; a < separa.length; a++) {
+
+   	  	if (separa[a].length > 0) {
+			if (separa[a] == 'Status')
+				tabela += "<td id=" + separa[a] + " width=85>&nbsp;<a href=# onclick=\"javascript:parent.source.hierarquia('" + separa[a] + "');\" class='linkVermelho'>" + separa[a] + "</a></td>";
+			else
+				tabela += "<td id=" + separa[a] + " width=110>&nbsp;<a href=# onclick=\"javascript:parent.source.hierarquia('" + separa[a] + "');\" class='linkAzulMarinho'>" + separa[a] + "</a>&nbsp;&nbsp;&nbsp;<a href=# title='Fecha a Aba' onclick=\"javascript:parent.source.fechaJanela('" + separa[a] + "');\" class='linkVermelho'><b>X</b></a>&nbsp;</td>";
+	    }
+
+	}
+	tabela += '</tr></table>';
+
+   	if (parent.topFrame.document.getElementById('windows'))
+		parent.topFrame.document.getElementById('windows').innerHTML = tabela;
+
+}
+
+function mostra(event, nome) {
+	var left = event.clientX;
+	var top  = parent.rightFrame.document.body.scrollTop + event.clientY;
+	menu = '';
+	menu += '<div id="Layer1" style="position:absolute; top:' + top + 'px; left:'+ left +'px; width:95px; z-index:1; overflow: visible;">';
+	menu += '  <table border="1" cellpadding="1" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" bgcolor="#EFEFEF"><tr><td width="100%">';
+	menu += '  <table border="0" cellpadding="1" cellspacing="0" width="100%">';
+	menu += '    <tr><td width="100%" height="18" align="center" valign="top"><font face=Verdana size=1><b>' + nome + '</b></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.privado("' + nome + '")>Privado</a></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.whois("' + nome + '")>Quem é?</a></td></tr>';
+	menu += '    <tr><td width="100%"><hr color="#808080" size="1" width="80%"></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.expulsar("' + nome + '")>Expulsar</a></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.banir("' + nome + '")>Banir</a></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.Op("' + nome + '")>Op (+o)</a></td></tr>';
+	menu += '    <tr><td width="100%"> <a class=users href="#" onclick=parent.source.DeOp("' + nome + '")>DeOp (-o)</a></td></tr>';
+	menu += '  </table>';
+	menu += '  </td></tr></table>';
+	menu += '</div>';
+	parent.rightFrame.document.getElementById('menu').innerHTML = menu;
+}
+
+function slayer() {
+
+	mensagemI = parent.bottomFrame.document.envia.msg.value;
+
+	comando(mensagemI);
+	parent.bottomFrame.document.envia.msg.value='';
+	getFocus();
+
+	T[i] = mensagemI;
+	i++;
+	j = i;
+
+}
+
+function getFocus() {
+	if (parent.bottomFrame.document.envia.msg.disabled==false)
+		parent.bottomFrame.document.envia.msg.focus();
+}
+
+function esconde() {
+	if (parent.rightFrame.document.getElementById('menu'))
+		parent.rightFrame.document.getElementById('menu').innerHTML = '';
+}
+
+function privado(alguem) {
+	// se usuario abriu pvt com ele mesmo
+	if (alguem == this.meuNick) {
+		main(alguem, '<font color=#008000>*** Iniciado chat privado com ' + alguem + '.</font><br>', '1', '1');
+		main(alguem, '<font color=#FF0000>*** Oops! Você abriu um chat privado com você mesmo.</font><br>', '1', '1');
+	} else {
+		//comando('/whois ' + alguem);
+		main(alguem, '<font color=#008000>*** Iniciado chat privado com ' + alguem + '.</font><br>', '1', '1');
+		main(alguem, '<font color=#008000>*** Para voltar a sala onde você se encontra, clique nas abas acima.</font><br>', '1', '1');
+	}
+}
+
+function entraCanal(canal) {
+	comando('/join ' + canal);
+}
+
+function whois(alguem) {
+	comando('/whois ' + alguem);
+}
+
+function expulsar(alguem) {
+
+	// se alguem for igual ao seu proprio nick
+	// entao avisa que está tentando expulsar a si mesmo
+	if (alguem == this.meuNick) {
+		main(this.janelaAtual, '<font color=#FF0000>*** Oops! Você está tentando expulsar a si mesmo.</font><br>', '1', '1');
+	} else {
+	    motivo = prompt("Digite o motivo porque está expulsando o usuário " + alguem + ":", "Motivo não consta.");
+	    if (motivo != null)
+			comando('/kick ' + this.janelaAtual + ' ' + alguem + ' :' + motivo);
+	}
+}
+
+function banir(alguem) {
+
+	// se alguem for igual ao seu proprio nick
+	// entao avisa que está tentando expulsar a si mesmo
+	if (alguem == this.meuNick){
+
+		main(this.janelaAtual, '<font color=#FF0000>*** Oops! Você está tentando banir a si mesmo.</font><br>', '1', '1');
+
+	} else {
+
+		comando('/mode set ban ' + this.janelaAtual + ' ' + alguem);
+		expulsar(alguem);
+
+	}
+
+}
+
+function Op(alguem) {
+	comando('/mode set host ' + this.janelaAtual + ' ' + alguem);
+}
+
+function DeOp(alguem) {
+	comando('/mode unset host ' + this.janelaAtual + ' ' + alguem);
+}
+
+function addNewTab(tabName, html, visible, scroll) {
+	mMsg['@' + tabName] = '';
+	main('@' + tabName, html, visible, scroll);
+}
+
+function limpaTela(msg) {
+
+	if (msg == null)
+		msg = '';
+
+	mMsg[this.janelaAtual] = msg;
+	if (parent.mainFrame.document.getElementById('main'))
+		parent.mainFrame.document.getElementById('main').innerHTML = mMsg[this.janelaAtual];
+
+}
+
+function trocarApelido() {
+	seila = prompt("Digite seu novo Apelido (não são aceitos espaço ou caracteres estranhos):", "");
+	if (seila != null)
+		comando('/nick ' + seila);
+}
+
+function criarSala() {
+	sala = prompt("Digite o nome da Sala que deseja criar (não são aceitos espaços e caracteres estranhos):", "");
+	if (sala != null)
+		comando('/join ' + sala);
+}
+
+function setSecretId(secretid) {
+	this.secret = secretid;
+}
+
+function imprimeWhois(apelido, host, salas, identificado, inativo, away, ip, status) {
+
+	html  = "<table border='1' cellpadding='2' cellspacing='0' style='line-height: 90%; border-collapse: collapse;' width='50%' bgcolor='#FFFFCC' bordercolor='#CC9900'>";
+	html += "	<tr>";
+	html += "		<td width='21%'><font size='1' face='Verdana'>Apelido:</td>";
+	html += "		<td width='79%'><font size='1' face='Verdana'>" + apelido + "</td>";
+	html += "	</tr>";
+	html += "	<tr>";
+	html += "		<td width='21%'><font size='1' face='Verdana'>Host:</td>";
+	html += "		<td width='79%'><font size='1' face='Verdana'>" + host + "</td>";
+	html += "	</tr>";
+	html += "	<tr>";
+	html += "		<td width='21%'><font size='1' face='Verdana'>Salas:</td>";
+	html += "		<td width='79%'><font size='1' face='Verdana'>" + salas + "</td>";
+	html += "	</tr>";
+	html += "	<tr>";
+	html += "		<td width='21%'><font size='1' face='Verdana'>Identificado?</td>";
+	html += "		<td width='79%'><font size='1' face='Verdana'>" + identificado + "</td>";
+	html += "	</tr>";
+	html += "	<tr>";
+	html += "		<td width='21%'><font size='1' face='Verdana'>Inativo há:</td>";
+	html += "		<td width='79%'><font size='1' face='Verdana'>" + inativo + "</td>";
+	html += "	</tr>";
+
+	if (away != '') {
+		html += "	<tr>";
+		html += "		<td width='21%'><font size='1' face='Verdana'>Longe:</td>";
+		html += "		<td width='79%'><font size='1' face='Verdana'>" + away + "</td>";
+		html += "	</tr>";
+	}
+	if (ip != '') {
+		html += "	<tr>";
+		html += "		<td width='21%'><font size='1' face='Verdana'>IP:</td>";
+		html += "		<td width='79%'><font size='1' face='Verdana'>" + ip + "</td>";
+		html += "	</tr>";
+	}
+	if (status != '') {
+		html += "	<tr>";
+		html += "		<td width='21%'><font size='1' face='Verdana'>Status:</td>";
+		html += "		<td width='79%'><font size='1' color='red' face='Verdana'><b>" + status + "</b></td>";
+		html += "	</tr>";
+	}
+
+	html += "</table><br>";
+
+	// imprime whois na pagina ativa
+	main(this.janelaAtual, html, '1', '1');
+
+}
+
+function imprimeNotice(titulo, conteudo) {
+
+	html  = "<table border='1' cellpadding='2' cellspacing='1' style='line-height: 100%; border-collapse: collapse;' width='50%' bgcolor='#FFFFCC' bordercolor='#CC9900'>";
+	html += "	<tr>";
+	html += "		<td width='100%'><font size='1' face='Verdana'><b><u>" + titulo + "</u></b></td>";
+	html += "	</tr>";
+	html += "	<tr>";
+	html += "		<td width='100%' align='justify'><font size='1' face='Verdana'>" + conteudo + "</td>";
+	html += "	</tr>";
+	html += "</table><br>";
+
+	// imprime whois na pagina ativa
+	main(this.janelaAtual, html, '1', '1');
+
+}
+
+//
+// funçoes do metodo de login da pagina top
+//
+
+function topLogin(logado) {
+
+	form = '';
+
+	if (logado == 'true') {
+
+		form += '<table align=right border=0 cellpadding=0 cellspacing=2 width="100%">';
+		form += '	<tr>';
+		form += '		<td width=100% align=center><font face=Verdana size=1 color=#ffffff>Ok, você está identificado<br> como: <u>' + this.meuNick + '</u></td>';
+		form += '	</tr>';
+		form += '</table>';
+
+	} else {
+
+		form += '<map name="Map1">';
+		form += '	<area shape="rect" coords="16,0,119,12"  href="#" onclick="parent.source.sendUrl(\'Registro\', \'?modules=Others&Part=Register\')">';
+		form += '	<area shape="rect" coords="122,0,232,15" href="#" onclick="parent.source.sendUrl(\'Senha\', \'?modules=Others&Part=Getpass\')">';
+		form += '</map>';
+		form += '<table align=right border=0 cellpadding=0 cellspacing=0 width=100%>';
+		form += '	<tr>';
+		form += '		<td width=100% align=right valign=top><img border=0 src=images/loginCadastroSenha.gif width=230 height=12 usemap=#Map1></td>';
+		form += '	</tr>';
+		form += '	<tr>';
+		form += '		<td width=100% valign=top>';
+		form += '			<form name=\"identify\">';
+		form += '			<table align=right border=0 cellpadding=0 cellspacing=1 width=75%>';
+		form += '				<tr>';
+		form += '					<td width=50%><font face=Verdana size=1 color="#ffffff"><b>Usuário:</td>';
+		form += '					<td width=50% colspan=2><input class=loginuser type=text size=15 name=usuario></td>';
+		form += '				</tr>';
+		form += '				<tr>';
+		form += '					<td width=50%><font face=Verdana size=1 color="#ffffff"><b>Senha:</td>';
+		form += '					<td width=35%><input class=loginpass type=password size=12 name=password></td>';
+		form += '					<td width=15%><input onClick="setIdentify(); return false;" type=image src=images/botao_ok.gif border=0 width=21 height=16></td>';
+		form += '				</tr>';
+		form += '			</table>';
+		form += '			</form>';
+		form += '		</td>';
+		form += '	</tr>';
+		form += '</table>';
+
+	}
+
+	// imprime
+	if (parent.topFrame.document.getElementById('login'))
+		parent.topFrame.document.getElementById('login').innerHTML = form;
+
+}
+
+function comando(cmd) {
+
+	// verifica se cmd tem alguma coisa
+	if (cmd != "") {
+
+		// se primeiro caracter da mensagem for /
+		// entao é comando e nao deve importar o stilo
+		if (cmd.charAt(0) != '/')
+			cmd = stilo + mensagemI;
+
+		if (window.XMLHttpRequest) {
+			req = new XMLHttpRequest();
+			req.open("GET", "go.html?msg=" + escape(cmd).replace("/", "%2F").replace("+", "%2B") + "&userID=" + this.secret + "&janela=" + escape(this.janelaAtual) + "&nick=" + this.meuNick, true);
+			req.send(null);
+		} else if (window.ActiveXObject) {
+			req = new ActiveXObject("Microsoft.XMLHTTP");
+			if (req) {
+				req.open("GET", "go.html?msg=" + escape(cmd).replace("/", "%2F").replace("+", "%2B") + "&userID=" + this.secret + "&janela=" + escape(this.janelaAtual) + "&nick=" + this.meuNick, true);
+				req.send();
+			} else {
+				req2 = new ActiveXObject("Msxml2.XMLHTTP");
+				if (req2) {
+					req2.open("GET", "go.html?msg=" + escape(cmd).replace("/", "%2F").replace("+", "%2B") + "&userID=" + this.secret + "&janela=" + escape(this.janelaAtual) + "&nick=" + this.meuNick, true);
+					req2.send();
+				}
+			}
+		}
+
+	}
+
+}
+
+function AjaxSendEmail() {
+
+	name    = parent.mainFrame.document.contact.name.value;
+	email   = parent.mainFrame.document.contact.email.value;
+	subject = parent.mainFrame.document.contact.subject.value;
+	message = parent.mainFrame.document.contact.message.value;
+	if ((name != '') && (email != '') && (subject != '') && (message != ''))
+		sendUrl('Contato', '?modules=Contact&name=' + name + '&send=1&subject=' + subject + '&email=' + email + '&message=' + message);
+	else
+		alert('Por favor, preencha todos os campos.');
+
+	return false;
+
+}
+
+function AjaxSendRegister() {
+
+	apelido = parent.mainFrame.document.register.apelido.value;
+	email   = parent.mainFrame.document.register.email.value;
+	if ((apelido != '') && (email != ''))
+		parent.source.sendUrl('Registro', 'index.irc?modules=Others&Part=Register&apelido=' + apelido + '&email=' + email);
+	else
+		alert('Por favor, preencha todos os campos.');
+
+	return false;
+
+}
+
+function AjaxSendGetpass() {
+
+	apelido = parent.mainFrame.document.getpass.apelido.value;
+	email   = parent.mainFrame.document.getpass.email.value;
+	if ((apelido != '') && (email != ''))
+		parent.source.sendUrl('Senha', 'index.irc?modules=Others&Part=Getpass&apelido=' + apelido + '&email=' + email);
+	else
+		alert('Por favor, preencha todos os campos.');
+
+	return false;
+
+}
+
+function AjaxSendVote() {
+
+	candidato = parent.mainFrame.document.voto.candidato.value;
+	nome	  = parent.mainFrame.document.voto.nome.value;
+	cpf       = parent.mainFrame.document.voto.cpf.value;
+	apelido   = parent.mainFrame.document.voto.apelido.value;
+	senha     = parent.mainFrame.document.voto.senha.value;
+
+	if ((candidato != '') && (nome != '') && (cpf != '') && (apelido != '') && (senha != ''))
+		parent.source.sendUrl('Vote', 'index.irc?modules=Others&Part=Vote&nome=' + nome + '&cpf=' + cpf + '&apelido=' + apelido + '&senha=' + senha + '&candidato=' + candidato);
+	else
+		alert('Por favor, preencha todos os campos.');
+
+	return false;
+
+}
+
+//-->
+</script>
+
+
+<script language='JavaScript'><!--
+
+//
+// metodos utilizados pelas páginas que ficam
+// no frame principal e nao podem dar submit
+//
+
+function sendUrl(win, cmd) {
+
+	// adiciona sessao na url
+	cmd = cmd + '<?="&".SID?>';
+
+	// verifica se cmd tem alguma coisa
+	if (cmd != "") {
+
+		if (window.XMLHttpRequest) {
+			req = new XMLHttpRequest();
+			req.open("GET", cmd, true);
+			req.onreadystatechange=function() {
+				if (req.readyState == 4) {
+
+					//Lê o texto
+					texto=req.responseText;
+
+					// Desfaz o urlencode
+					texto=texto.replace(/\+/g, " ");
+					texto=unescape(texto);
+
+					addNewTab(win, texto, '1', '0');
+
+				}
+			}
+			req.send(null);
+		} else if (window.ActiveXObject) {
+			req = new ActiveXObject("Microsoft.XMLHTTP");
+			if (req) {
+				req.open("GET", cmd, true);
+				req.onreadystatechange=function() {
+					if (req.readyState == 4) {
+
+						//Lê o texto
+						texto=req.responseText;
+
+						//Desfaz o urlencode
+						texto=texto.replace(/\+/g, " ");
+						texto=unescape(texto);
+
+						addNewTab(win, texto, '1', '0');
+
+					}
+				}
+				req.send();
+			} else {
+				req2 = new ActiveXObject("Msxml2.XMLHTTP");
+				if (req2) {
+					req2.open("GET", cmd, true);
+					req2.onreadystatechange=function() {
+						if (req2.readyState == 4) {
+
+							//Lê o texto
+							texto=req2.responseText;
+
+							//Desfaz o urlencode
+							texto=texto.replace(/\+/g, " ");
+							texto=unescape(texto);
+
+							addNewTab(win, texto, '1', '0');
+
+						}
+					}
+					req2.send();
+				}
+			}
+		}
+
+	}
+
+}
+
+// define toplogin
+topLogin(false);
+
+// chama monitoramento do teclado
+parent.bottomFrame.document.onkeydown = keyDown;
+
+//-->
+</script>

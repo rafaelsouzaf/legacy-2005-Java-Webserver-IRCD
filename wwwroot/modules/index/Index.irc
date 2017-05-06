@@ -1,0 +1,200 @@
+<?php
+
+// importa classe template
+require_once "templates/TemplateIndex.irc";
+
+// classe que imprime a pagina inicial
+class Index extends TemplateIndex {
+
+	var $conexao;
+	var $req;
+
+	// construtor da classe
+	function Index(&$conexao, &$req) {
+
+		// atribui $conexao
+		$this->conexao = $conexao;
+
+		// atribui variavel de request
+		$this->req = $req;
+
+	}
+
+	function execute() {
+
+		// pega numero de usuarios do server
+		$this->numberUsers = $this->getUsersOnline();
+
+		// pega numero de salas
+		$this->numberChannels = $this->getChannelsOnline();
+
+		// pega tabela com canais, usuarios e topicos
+		$this->channels = $this->getText();
+
+		// imprime pagina
+		echo parent::getTemplate();
+
+	}
+
+	function getText() {
+
+		// limite de salas por pagina
+		$limit = 20;
+
+		// pagina que usuario deseja ver
+		$page = $this->req['page'];
+		if (!$page) {
+			$page = 1;
+			$this->req['page'] = 1;
+		}
+		$page = $page - 1;
+		$page = $page * $limit;
+
+		// total de resultados do banco de dados, isso é muito util para saber
+		// quantas páginas a pagínaçao poderá criar
+		$total = mysql_num_rows(mysql_query("SELECT * FROM channels"));
+		$total = ceil($total / $limit);
+
+		// cria links para paginaçao
+		for ($i = 1; $i <= $total; $i++) {
+
+			// se o $i for igual ao numero da pagina atual, entao
+			// nao cria link e sim um destaque com negrito
+			if ($i == $this->req['page'])
+				$paginacao .= "<b>$i</b> ";
+			else
+				$paginacao .= "<a class='linkPag' href='?page=$i'>$i</a> ";
+
+			// adiciona separador
+			if ($i < $total)
+				$paginacao .= "| ";
+
+		}
+
+		if ($total > 1) {
+
+			$text .= "
+
+				<table cellSpacing=0 cellPadding=2 width=100% border=0 style='border-collapse: collapse' borderColor=#C0C0C0>
+					<tr>
+						<td width='20%' height='30' align='center'>
+							<font size='2' face='Verdana'>$paginacao</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+
+			";
+
+		}
+
+		$text .= "
+
+			<table cellSpacing=0 cellPadding=2 width=100% border=0>
+				<tr>
+					<td width='20%'>
+						<input type='button' onClick='javascript:entra();' value='Entrar'>
+					</td>
+					<td width='80%' align='right' colspan='2'>
+						<font face='Verdana' size='1'><b><u>E</b>ntre</u> <u>em</u> <u>várias</u> <u>salas</u> <u>simultaneamente</u>.</font>
+					</td>
+				</tr>
+			</table>
+
+			<table cellSpacing=0 cellPadding=2 width=100% border=1 style='border-collapse: collapse' borderColor=#C0C0C0>
+				<tr>
+					<td width='20%' height='30' align='center'>
+						<font size='1' face='Verdana'>Salas</font>
+					</td>
+					<td width='5%' align='center'>
+						<font size='1' face='Verdana'>Usuários</font>
+					</td>
+					<td width='75%' align='center'>
+						<font size='1' face='Verdana'>Tópicos</font>
+					</td>
+				</tr>
+
+		";
+
+        $result = mysql_query("SELECT * FROM channels ORDER BY users DESC LIMIT $page,$limit");
+		while ($row = mysql_fetch_array($result)) {
+
+			$channel = $row['channel'];
+
+            $text .= "
+                <tr>
+                    <td width='20%' height='30'>
+                        <input type='checkbox' onClick=\"javascript:setaSala('".$channel."')\">
+                        <a class=link href='#' onClick=\"javascript:setaSala('".$channel."'); entra();\">
+                        <font size=2 face=Verdana>".$channel."</font></a>
+					</td>
+					<td width='5%'>
+						<font size=2 face=Verdana>&nbsp;&nbsp;".$row['users']."</font>
+					</td>
+					<td width='75%'>
+						<font size=1 face=Verdana>".$row['topic']."</font>
+					</td>
+				</tr>
+            ";
+
+		}
+
+		$text .= "
+
+			</table>
+
+			<table cellSpacing=0 cellPadding=2 width=100% border=0>
+				<tr>
+					<td width='20%'>
+						<input type='button' onClick='javascript:entra();' value='Entrar'>
+					</td>
+					<td width='80%' align='right' colspan='2'>
+						<font face='Verdana' size='1'><b><u>E</b>ntre</u> <u>em</u> <u>várias</u> <u>salas</u> <u>simultaneamente</u>.</font>
+					</td>
+				</tr>
+			</table>
+
+		";
+
+		if ($total > 1) {
+
+			$text .= "
+
+				<table cellSpacing=0 cellPadding=2 width=100% border=0 style='border-collapse: collapse' borderColor=#C0C0C0>
+					<tr>
+						<td width='20%' height='30' align='center'>
+							<font size='2' face='Verdana'>$paginacao</font>
+						</td>
+					</tr>
+				</table>
+				<br>
+
+			";
+
+		}
+
+		return $text;
+
+	}
+
+	function getUsersOnline() {
+
+		$result = mysql_query("SELECT users_total FROM server");
+		if ($row = mysql_fetch_array($result)) {
+			return $row['users_total'];
+		}
+
+	}
+
+	function getChannelsOnline() {
+
+		$result = mysql_query("SELECT channels_online FROM server");
+		if ($row = mysql_fetch_array($result)) {
+			return $row['channels_online'];
+		}
+
+	}
+
+}
+
+?>
