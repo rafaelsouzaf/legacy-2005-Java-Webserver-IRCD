@@ -1,7 +1,7 @@
 # legacy-2005-Java-Webserver-IRCD
-Made in 2005/2006. Only for maintains the good memories.
+Made in 2005/2006. It's here just to keep the good memories.
 
-This older project is an IRCD in WebServer format. Was made in Java but the templates support PHP. Today is not useful, but in 2005 was a very funny project to study Java.
+This older project is an IRCD in WebServer format. Was made in Java but the templates support PHP. Today is not useful, but in 2005 (more than 12 years ago!) was a very funny project to study Java.
 
 The program is a mini-webserver (like Apache, IIS) with partial PHP support. It is also an IRCD server (software that receives connections from IRC clients) with services (ChanServ, NickServ, OperServ) and it is also a WebChat. All integrated.
 
